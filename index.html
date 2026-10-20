@@ -319,6 +319,66 @@ footer svg{height:24px;width:auto;display:block}
 }
 @media (max-width:440px){#cla{padding-bottom:24px} #desafios .stage .wrap{align-content:start}}
 @media (max-width:380px){.rw{gap:8px;padding:0 10px}.steps button{padding:8px 9px;font-size:12px}}
+
+/* ===== Seção "Aperte o botão": o símbolo liga/desliga ===== */
+.pw{overflow:hidden}
+.pw .wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.pw-title{position:relative;font-size:clamp(30px,8vw,56px);min-height:2.2em;width:100%;display:grid}
+.pw-title>span{grid-area:1/1;transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1)}
+.pw-title em{font-style:normal;color:var(--brasa)}
+.pw-title .t-on{opacity:0;transform:translateY(16px)}
+.pw.on .pw-title .t-off{opacity:0;transform:translateY(-16px)}
+.pw.on .pw-title .t-on{opacity:1;transform:none}
+.pw-stage{position:relative;width:min(100%,520px);height:clamp(380px,100vw,470px);margin-top:6px;border-radius:32px;isolation:isolate}
+.pw-stage::before{content:"";position:absolute;inset:8% 4%;border-radius:50%;background:radial-gradient(circle,rgba(255,88,53,.0),rgba(255,88,53,0) 60%);transition:background .8s;z-index:-1}
+.pw.on .pw-stage::before{background:radial-gradient(circle,rgba(255,88,53,.42),rgba(255,88,53,0) 62%)}
+.pw-chip{position:absolute;display:flex;gap:9px;align-items:center;max-width:46%;padding:9px 12px;border-radius:16px;background:rgba(246,241,236,.10);border:1px solid rgba(246,241,236,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);text-align:left;font-size:12.5px;line-height:1.25;color:var(--areia);
+  transition:transform .7s cubic-bezier(.6,-.05,.3,1),opacity .5s;transition-delay:calc(var(--i)*55ms);animation:pwBuzz 2.6s ease-in-out infinite;animation-delay:calc(var(--i)*-370ms)}
+.pw-chip i{flex:none;width:26px;height:26px;border-radius:8px;background:var(--c);position:relative}
+.pw-chip i::after{content:attr(data-n);position:absolute;top:-6px;right:-7px;min-width:16px;height:16px;padding:0 4px;border-radius:9px;background:#FF3B30;color:#fff;font:700 10px/16px var(--f-body);text-align:center}
+.pw-chip b{display:block;font-weight:600}
+.pw-chip small{opacity:.7}
+@keyframes pwBuzz{0%,82%,100%{translate:0 0;rotate:0deg}85%{translate:-2px 0;rotate:-1.5deg}88%{translate:2px 0;rotate:1.5deg}91%{translate:-2px 0;rotate:-1deg}94%{translate:1px 0;rotate:.5deg}}
+.pw.on .pw-chip{transform:translate(var(--dx,0),var(--dy,0)) scale(.08);opacity:0;animation:none}
+.pw-btn{position:absolute;left:50%;top:50%;width:clamp(150px,40vw,190px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 50% 38%,#2a2628,#151416 70%);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.08),inset 0 -6px 18px rgba(0,0,0,.6),0 18px 50px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);transition:transform .18s,box-shadow .6s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.pw-btn:active,.pw-btn.press{transform:translate(-50%,-50%) scale(.92)}
+.pw.on .pw-btn{box-shadow:inset 0 2px 0 rgba(255,255,255,.12),inset 0 -6px 18px rgba(0,0,0,.45),0 0 0 1px rgba(255,175,120,.35),0 0 60px rgba(255,88,53,.55),0 0 140px rgba(255,88,53,.35)}
+.pw-btn svg{position:absolute;inset:18%;width:64%;height:64%;overflow:visible}
+.pw-btn .s-off path{stroke:#4a4448}
+.pw-btn .s-on{opacity:0;filter:drop-shadow(0 0 10px rgba(255,88,53,.8))}
+.pw-btn .s-on path{stroke:url(#gb);stroke-dasharray:1;stroke-dashoffset:1}
+.pw.on .pw-btn .s-on{opacity:1}
+.pw.on .pw-btn .s-on path{animation:pwDraw .7s cubic-bezier(.6,.1,.2,1) forwards}
+.pw.on .pw-btn .s-on path:nth-child(2){animation-delay:.12s}.pw.on .pw-btn .s-on path:nth-child(3){animation-delay:.24s}
+@keyframes pwDraw{to{stroke-dashoffset:0}}
+.pw-ring{position:absolute;inset:-10px;border-radius:50%;background:conic-gradient(from 0deg,rgba(255,175,120,0),rgba(255,175,120,.0) 70%,rgba(255,175,120,.55) 92%,rgba(255,175,120,0));-webkit-mask:radial-gradient(circle,transparent 66%,#000 67.5%,#000 70%,transparent 71%);mask:radial-gradient(circle,transparent 66%,#000 67.5%,#000 70%,transparent 71%);animation:pwSpin 2.4s linear infinite;opacity:.9}
+.pw.on .pw-ring{background:conic-gradient(from 0deg,rgba(255,88,53,.0),rgba(255,88,53,.9),rgba(255,175,120,.9),rgba(255,88,53,0));animation-duration:6s}
+@keyframes pwSpin{to{rotate:360deg}}
+.pw-wave{position:absolute;left:50%;top:50%;width:180px;height:180px;margin:-90px 0 0 -90px;border-radius:50%;border:3px solid rgba(255,175,120,.9);opacity:0;pointer-events:none}
+.pw-wave.go{animation:pwWave .9s ease-out}
+.pw-wave.go2{animation:pwWave 1.2s .12s ease-out}
+@keyframes pwWave{0%{opacity:.95;transform:scale(.6)}100%{opacity:0;transform:scale(3.2)}}
+.pw-spark{position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px;border-radius:50%;background:radial-gradient(circle,#FFE3C9,#FF5835 70%);pointer-events:none;opacity:0}
+.pw-spark.go{animation:pwSpark .9s cubic-bezier(.1,.7,.3,1) forwards}
+@keyframes pwSpark{0%{opacity:1;transform:rotate(var(--a)) translateX(30px) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) scale(.3)}}
+.pw-focus{position:absolute;left:50%;bottom:4%;transform:translate(-50%,14px);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:100%;opacity:0;transition:opacity .5s .45s,transform .6s .45s;pointer-events:none}
+.pw.on .pw-focus{opacity:1;transform:translate(-50%,0)}
+.pw-focus span{font-size:13px;font-weight:600;padding:8px 13px;border-radius:99px;background:rgba(255,88,53,.14);border:1px solid rgba(255,88,53,.4);color:#FFC4A0;font-variant-numeric:tabular-nums}
+.pw-hint{font-size:14px;color:var(--cinza);margin:4px 0 0;display:flex;align-items:center;gap:8px;justify-content:center}
+.pw-hint .dot{width:8px;height:8px;border-radius:50%;background:var(--brasa);animation:pwPing 1.6s infinite}
+@keyframes pwPing{0%{box-shadow:0 0 0 0 rgba(255,88,53,.7)}80%,100%{box-shadow:0 0 0 12px rgba(255,88,53,0)}}
+.pw-btn.nudge{animation:pwNudge 1.6s ease-in-out 2}
+@keyframes pwNudge{0%,100%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-50%) scale(1.06)}60%{transform:translate(-50%,-50%) scale(.97)}}
+.pw-btn:focus-visible{outline:2px solid var(--faisca);outline-offset:8px}
+@media (prefers-reduced-motion:reduce){
+  .pw-chip{animation:none;transition:opacity .3s}
+  .pw.on .pw-chip{transform:none}
+  .pw-ring,.pw-btn.nudge,.pw-hint .dot{animation:none}
+  .pw.on .pw-btn .s-on path{animation:none;stroke-dashoffset:0}
+  .pw-wave.go,.pw-wave.go2,.pw-spark.go{animation:none}
+}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .hero .sym path,.final .icon3d img,.cue b,.soon i,.aur,.grain::before{animation:none}
@@ -388,6 +448,27 @@ footer svg{height:24px;width:auto;display:block}
   </section>
 
   <div class="ticker" aria-hidden="true"><div class="row" id="tick"></div></div>
+
+  <!-- APERTE O BOTÃO -->
+  <section class="block pw" id="botao" data-temp="deep">
+    <div class="wrap">
+      <p class="eyebrow">Experimente</p>
+      <h2 class="pw-title"><span class="t-off">Aperte o botão.</span><span class="t-on">Desligou o celular. <em>Ligou a sua vida.</em></span></h2>
+      <div class="pw-stage" id="pwStage">
+        <div class="pw-chip" style="--i:0;--c:#3DBE6A;left:2%;top:2%"><i data-n="37"></i><span><b>Grupo da família</b><small>37 mensagens novas</small></span></div><div class="pw-chip" style="--i:1;--c:#FF3B30;right:2%;top:6%"><i data-n="1"></i><span><b>Vídeo pra você</b><small>agora</small></span></div><div class="pw-chip" style="--i:2;--c:#FF9500;right:2%;top:33%"><i data-n="2"></i><span><b>Oferta relâmpago</b><small>termina em 10 min</small></span></div><div class="pw-chip" style="--i:3;--c:#5856D6;left:2%;top:36%"><i data-n="12"></i><span><b>Notificações</b><small>12 não lidas</small></span></div><div class="pw-chip" style="--i:4;--c:#E1306C;left:2%;top:66%"><i data-n="9"></i><span><b>Alguém curtiu</b><small>sua foto</small></span></div><div class="pw-chip" style="--i:5;--c:#00B2FF;right:2%;top:70%"><i data-n="5"></i><span><b>Seu feed</b><small>tem novidades</small></span></div>
+        <span class="pw-wave"></span><span class="pw-wave"></span>
+        <span class="pw-spark" style="--a:0deg;--d:150px"></span><span class="pw-spark" style="--a:24deg;--d:120px"></span><span class="pw-spark" style="--a:48deg;--d:170px"></span><span class="pw-spark" style="--a:72deg;--d:135px"></span><span class="pw-spark" style="--a:96deg;--d:160px"></span><span class="pw-spark" style="--a:120deg;--d:115px"></span><span class="pw-spark" style="--a:144deg;--d:175px"></span><span class="pw-spark" style="--a:168deg;--d:140px"></span><span class="pw-spark" style="--a:192deg;--d:125px"></span><span class="pw-spark" style="--a:216deg;--d:165px"></span><span class="pw-spark" style="--a:240deg;--d:130px"></span><span class="pw-spark" style="--a:264deg;--d:155px"></span><span class="pw-spark" style="--a:288deg;--d:145px"></span><span class="pw-spark" style="--a:312deg;--d:170px"></span><span class="pw-spark" style="--a:336deg;--d:120px"></span>
+        <button type="button" class="pw-btn" id="pwBtn" aria-pressed="false" aria-label="Desligar as distrações">
+          <span class="pw-ring" aria-hidden="true"></span>
+          <svg class="s-off" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)"><path pathLength="1" d="M66.62 38.72 A27 27 0 1 1 33.38 38.72"/><path pathLength="1" d="M50 55 L50 31"/><path pathLength="1" d="M35 24 L50 9 L65 24"/></g></svg>
+          <svg class="s-on" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)"><path pathLength="1" d="M66.62 38.72 A27 27 0 1 1 33.38 38.72"/><path pathLength="1" d="M50 55 L50 31"/><path pathLength="1" d="M35 24 L50 9 L65 24"/></g></svg>
+        </button>
+        <div class="pw-focus" aria-hidden="true"><span>Foco ligado</span><span id="pwClock">00:00:00</span><span>6 apps em silêncio</span></div>
+      </div>
+      <p class="pw-hint" id="pwHint"><span class="dot"></span><span id="pwHintTxt">Toque no botão para desligar</span></p>
+      <p class="sr-only" aria-live="polite" id="pwLive"></p>
+    </div>
+  </section>
 
   <!-- CENA 1 -->
   <section class="scene" id="desliga" data-scene="power" data-temp="deep" style="height:340svh">
@@ -976,5 +1057,50 @@ footer svg{height:24px;width:auto;display:block}
 })();
 </script>
 
+
+<script>
+/* Aperte o botão: o símbolo liga/desliga */
+(function(){
+  var sec=document.getElementById('botao'); if(!sec) return;
+  var btn=document.getElementById('pwBtn'), stage=document.getElementById('pwStage'), clock=document.getElementById('pwClock'),
+      hint=document.getElementById('pwHintTxt'), live=document.getElementById('pwLive'),
+      chips=[].slice.call(sec.querySelectorAll('.pw-chip')), waves=sec.querySelectorAll('.pw-wave'), sparks=[].slice.call(sec.querySelectorAll('.pw-spark'));
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches, on=false, t0=0, timer=0, actx=null, pressedOnce=false;
+  function aim(){ var r=stage.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+    chips.forEach(function(c){ var b=c.getBoundingClientRect(); c.style.setProperty('--dx',(cx-(b.left+b.width/2))+'px'); c.style.setProperty('--dy',(cy-(b.top+b.height/2))+'px'); }); }
+  function fmt(n){return String(n).padStart(2,'0');}
+  function tick(){ var s=Math.floor((performance.now()-t0)/1000); clock.textContent=fmt(Math.floor(s/3600))+':'+fmt(Math.floor(s%3600/60))+':'+fmt(s%60); }
+  function sound(up){
+    try{ actx=actx||new (window.AudioContext||window.webkitAudioContext)(); var t=actx.currentTime, o=actx.createOscillator(), g=actx.createGain();
+      o.type='sine'; o.frequency.setValueAtTime(up?180:420,t); o.frequency.exponentialRampToValueAtTime(up?620:140,t+.22);
+      g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.12,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+.3);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+.32); }catch(e){}
+  }
+  function restart(el,cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+  function set(v){
+    on=v; aim();
+    sec.classList.toggle('on',on); btn.setAttribute('aria-pressed',on?'true':'false');
+    btn.setAttribute('aria-label',on?'Ligar as distrações de novo':'Desligar as distrações');
+    hint.textContent=on?'Toque de novo para ver como era antes':'Toque no botão para desligar';
+    live.textContent=on?'Distrações desligadas. Foco ligado.':'Distrações de volta.';
+    clearInterval(timer);
+    if(on){ t0=performance.now(); tick(); timer=setInterval(tick,1000);
+      if(!reduce){ restart(waves[0],'go'); restart(waves[1],'go2'); sparks.forEach(function(sp){ restart(sp,'go'); }); }
+      if(navigator.vibrate) try{navigator.vibrate([18,40,30]);}catch(e){}
+    } else { clock.textContent='00:00:00'; }
+    sound(on);
+  }
+  btn.addEventListener('pointerdown',function(){ btn.classList.add('press'); });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(n){ btn.addEventListener(n,function(){ btn.classList.remove('press'); }); });
+  btn.addEventListener('click',function(){ pressedOnce=true; btn.classList.remove('nudge'); set(!on); });
+  addEventListener('resize',function(){ if(!on) aim(); },{passive:true});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ var e=es[0];
+      if(e.isIntersecting&&!pressedOnce&&!reduce) setTimeout(function(){ if(!pressedOnce) restart(btn,'nudge'); },1400);
+      clearInterval(timer); if(e.isIntersecting&&on){ tick(); timer=setInterval(tick,1000); }
+    },{threshold:.6}).observe(stage);
+  }
+})();
+</script>
 </body>
 </html>
