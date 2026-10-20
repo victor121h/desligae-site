@@ -371,19 +371,7 @@ footer svg{height:24px;width:auto;display:block}
 .pw-btn.nudge{animation:pwNudge 1.6s ease-in-out 2}
 @keyframes pwNudge{0%,100%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-50%) scale(1.06)}60%{transform:translate(-50%,-50%) scale(.97)}}
 .pw-btn:focus-visible{outline:2px solid var(--faisca);outline-offset:8px}
-@media (prefers-reduced-motion:reduce){
-  .pw-chip{animation:none;transition:opacity .3s}
-  .pw.on .pw-chip{transform:none}
-  .pw-ring,.pw-btn.nudge,.pw-hint .dot{animation:none}
-  .pw.on .pw-btn .s-on path{animation:none;stroke-dashoffset:0}
-  .pw-wave.go,.pw-wave.go2,.pw-spark.go{animation:none}
-}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .hero .sym path,.final .icon3d img,.cue b,.soon i,.aur,.grain::before{animation:none}
-  .rv,.js .rv:not(.in){opacity:1;transform:none}
-}
 </style>
 </head>
 <body>
@@ -699,7 +687,7 @@ footer svg{height:24px;width:auto;display:block}
 
 <script>
 (function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = false; /* o dono pediu as mesmas animações do PC em todo celular, inclusive com "Reduzir movimento" ligado */
   var root = document.documentElement; root.classList.add('js');
   var clamp=function(v,a,b){return Math.min(b,Math.max(a,v));};
   var seg=function(p,a,b){return clamp((p-a)/(b-a),0,1);};
@@ -762,7 +750,15 @@ footer svg{height:24px;width:auto;display:block}
   })();
 
   /* inclinação 3D em cartões ao passar o cursor */
-  if(!reduce && matchMedia('(hover:hover)').matches){
+  if(!matchMedia('(hover:hover)').matches){
+    var tilts=$$('[data-tilt]'), tq=false;
+    function tiltScroll(){ tq=false; var vh=innerHeight;
+      tilts.forEach(function(el,i){ var r=el.getBoundingClientRect(); if(r.bottom<-50||r.top>vh+50) return;
+        var q=Math.max(-1,Math.min(1,(r.top+r.height/2-vh/2)/(vh/2)));
+        el.style.transform='perspective(700px) rotateX('+(q*9).toFixed(2)+'deg) rotateY('+((i%2?1:-1)*q*6).toFixed(2)+'deg)'; }); }
+    addEventListener('scroll',function(){ if(!tq){ tq=true; requestAnimationFrame(tiltScroll); } },{passive:true}); tiltScroll();
+  }
+  if(matchMedia('(hover:hover)').matches){
     $$('[data-tilt]').forEach(function(el){
       el.addEventListener('pointermove',function(e){ var r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; el.style.transform='perspective(700px) rotateX('+(-y*8).toFixed(2)+'deg) rotateY('+(x*10).toFixed(2)+'deg) translateY(-3px)'; });
       el.addEventListener('pointerleave',function(){ el.style.transform=''; });
@@ -1065,7 +1061,7 @@ footer svg{height:24px;width:auto;display:block}
   var btn=document.getElementById('pwBtn'), stage=document.getElementById('pwStage'), clock=document.getElementById('pwClock'),
       hint=document.getElementById('pwHintTxt'), live=document.getElementById('pwLive'),
       chips=[].slice.call(sec.querySelectorAll('.pw-chip')), waves=sec.querySelectorAll('.pw-wave'), sparks=[].slice.call(sec.querySelectorAll('.pw-spark'));
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches, on=false, t0=0, timer=0, actx=null, pressedOnce=false;
+  var reduce=false, on=false, t0=0, timer=0, actx=null, pressedOnce=false;
   function aim(){ var r=stage.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
     chips.forEach(function(c){ var b=c.getBoundingClientRect(); c.style.setProperty('--dx',(cx-(b.left+b.width/2))+'px'); c.style.setProperty('--dy',(cy-(b.top+b.height/2))+'px'); }); }
   function fmt(n){return String(n).padStart(2,'0');}
