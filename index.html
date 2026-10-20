@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0C0E">
+<link rel="icon" href="img/icone.png">
+<title>Desligaê</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Desligue o Celular. Ligue a sua vida. Foco, finanças, agenda, hábitos, metas e desafios com amigos num app só.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+body{margin:0}
+/* Layout: página escura de rolagem contada em capítulos; cada capítulo prende um celular no centro (sticky) e a rolagem dirige a cena */
+:root{
+  --caverna:#0B0C0E; --rocha:#1C1B1D; --rocha2:#26242A;
+  --brasa:#FF5835; --faisca:#FFAF78; --ticao:#AE351E;
+  --areia:#F6F1EC; --cinza:#A39C96; --linha:rgba(246,241,236,.10);
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gut-l:max(20px,env(safe-area-inset-left,0px)); --gut-r:max(20px,env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--caverna);color:var(--areia);font-family:var(--f-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:-.035em;line-height:1.04;margin:0;text-wrap:balance}
+h2{font-size:clamp(34px,8.6vw,64px)}
+h2 em{font-style:normal;color:var(--brasa)}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--faisca);margin:0 0 14px}
+.lead{color:#CFC6BF;font-size:clamp(17px,4.4vw,20px);max-width:34ch;margin:16px 0 0}
+:focus-visible{outline:2px solid var(--faisca);outline-offset:3px;border-radius:6px}
+
+/* topo fixo */
+.bar{position:fixed;left:0;right:0;top:0;z-index:20;padding-top:env(safe-area-inset-top,0px);transition:background .3s,backdrop-filter .3s}
+.bar.solid{background:rgba(11,12,14,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--linha)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.bar .logo svg{height:28px;width:auto;display:block}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;text-decoration:none;border-radius:999px;padding:12px 20px;font-size:15px;line-height:1;white-space:nowrap}
+.btn-hot{background:linear-gradient(135deg,var(--faisca),var(--brasa) 60%);color:var(--caverna);box-shadow:0 10px 30px rgba(255,88,53,.35)}
+.btn-ghost{border:1.5px solid rgba(255,175,120,.45);color:var(--areia)}
+.bar .btn{padding:10px 16px;font-size:14px}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--faisca),var(--brasa))}
+
+/* herói */
+.hero{position:relative;min-height:min(100svh,920px);display:flex;align-items:center;overflow:hidden;padding-block:110px 70px}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .glow{position:absolute;width:760px;max-width:140vw;aspect-ratio:1;left:50%;top:34%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,88,53,.30),rgba(255,88,53,0) 60%);pointer-events:none}
+.hero .wrap{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;width:100%}
+.hero .sym{width:clamp(130px,36vw,190px);height:auto;overflow:visible;filter:drop-shadow(0 12px 50px rgba(255,88,53,.5))}
+.hero .sym path{stroke-dasharray:1;stroke-dashoffset:0;animation:draw 1.4s cubic-bezier(.6,.1,.2,1) both}
+.hero .sym path:nth-child(2){animation-delay:.35s}.hero .sym path:nth-child(3){animation-delay:.75s}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.hero h1{font-size:clamp(40px,11.5vw,96px)}
+.hero h1 span{display:block}
+.hero h1 .on{background:linear-gradient(180deg,var(--faisca),var(--brasa) 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#CFC6BF;font-size:clamp(17px,4.5vw,21px);max-width:30ch;margin:0}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.soon{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--faisca);border:1px solid rgba(255,175,120,.3);border-radius:999px;padding:8px 14px}
+.soon i{width:7px;height:7px;border-radius:50%;background:var(--brasa);box-shadow:0 0 0 0 rgba(255,88,53,.7);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(255,88,53,0)}100%{box-shadow:0 0 0 0 rgba(255,88,53,0)}}
+.cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza);display:flex;flex-direction:column;align-items:center;gap:8px}
+.cue b{width:2px;height:34px;background:linear-gradient(var(--brasa),transparent);border-radius:2px;animation:cue 1.6s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(.2);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(.2);transform-origin:bottom}}
+
+/* faixa que corre com a rolagem */
+.ticker{overflow:hidden;border-block:1px solid var(--linha);padding-block:18px;background:var(--rocha)}
+.ticker .row{display:flex;gap:34px;white-space:nowrap;font-family:var(--f-display);font-size:clamp(22px,6vw,40px);font-weight:700;letter-spacing:-.02em;will-change:transform}
+.ticker .row span:nth-child(even){color:var(--brasa)}
+
+/* cenas presas (sticky) */
+.scene{position:relative}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
+.stage .wrap{width:100%;display:grid;grid-template-columns:1fr;justify-items:center;align-content:center;gap:22px;height:100%;padding-block:76px 18px}
+.copy{position:relative;width:100%;max-width:560px;min-height:clamp(140px,26svh,210px)}
+#vida .phone{height:min(50svh,560px)}
+#vida .stage .wrap{gap:14px}
+.copy .cap{position:absolute;inset:0 0 auto 0;transition:opacity .45s,transform .45s}
+.copy .cap.off{opacity:0;transform:translateY(14px);pointer-events:none}
+.copy h2{font-size:clamp(30px,8vw,58px)}
+.copy p{color:#CFC6BF;margin:12px 0 0;font-size:clamp(16px,4.2vw,19px);max-width:36ch}
+
+.phone{position:relative;height:min(58svh,620px);aspect-ratio:1206/2622;max-width:100%;border-radius:clamp(30px,7svh,58px);background:var(--rocha2);padding:clamp(6px,1.1svh,11px);box-shadow:0 0 0 1.5px rgba(255,255,255,.08),0 40px 120px rgba(255,88,53,.22),0 24px 60px rgba(0,0,0,.6)}
+.screen{position:relative;width:100%;height:100%;border-radius:clamp(24px,5.8svh,48px);overflow:hidden;background:#000}
+.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.island{position:absolute;top:2.2%;left:50%;transform:translateX(-50%);width:30%;height:3.6%;background:#000;border-radius:99px;z-index:5}
+
+/* cena 1: o celular que desliga */
+.lock{position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 0%,#3a2b49 0%,#1b1724 45%,#0e0d12 100%);transition:filter .2s}
+.lock .time{position:absolute;top:11%;width:100%;text-align:center;font-weight:600;font-size:clamp(34px,8svh,64px);letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums}
+.lock .date{position:absolute;top:8.4%;width:100%;text-align:center;font-size:clamp(10px,1.6svh,14px);color:rgba(255,255,255,.75);font-weight:500}
+.notes{position:absolute;left:5%;right:5%;bottom:6%;display:flex;flex-direction:column-reverse;gap:clamp(4px,.8svh,7px)}
+.note{background:rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:clamp(10px,1.8svh,16px);padding:clamp(6px,1.1svh,10px) clamp(8px,1.3svh,12px);display:flex;gap:8px;align-items:center;color:#fff;font-size:clamp(9px,1.45svh,13px);line-height:1.25;opacity:0;transform:translateY(30px) scale(.94);will-change:transform,opacity}
+.note .ic{flex:none;width:clamp(18px,3.2svh,28px);aspect-ratio:1;border-radius:24%;background:var(--c,#555)}
+.note b{display:block;font-weight:600}
+.note small{opacity:.75}
+.shut{position:absolute;inset:0;background:#000;opacity:0;display:flex;align-items:center;justify-content:center}
+.shut svg{width:44%;height:auto;opacity:0;transform:scale(.6);filter:drop-shadow(0 0 30px rgba(255,88,53,.6))}
+.focus{position:absolute;inset:0;background:radial-gradient(110% 70% at 50% 30%,#2a1610 0%,#0B0C0E 65%);opacity:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(6px,1.4svh,12px);text-align:center}
+.focus .ring{width:62%;aspect-ratio:1;position:relative}
+.focus .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.focus .ring .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.focus .lbl{font-size:clamp(7px,1.15svh,11px);letter-spacing:.16em;text-transform:uppercase;color:var(--faisca);font-weight:600}
+.focus .clock{font-family:var(--f-display);font-weight:700;font-size:clamp(17px,3.6svh,32px);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.focus .badge{font-size:clamp(9px,1.4svh,13px);font-weight:600;color:var(--caverna);background:linear-gradient(135deg,var(--faisca),var(--brasa));border-radius:99px;padding:5px 12px;opacity:0;transform:scale(.6);transition:opacity .35s,transform .45s cubic-bezier(.3,1.6,.5,1)}
+.focus .badge.on{opacity:1;transform:scale(1)}
+.focus .blocked{font-size:clamp(8px,1.25svh,12px);color:var(--cinza)}
+
+/* cena 2: módulos */
+.steps{display:flex;gap:6px;justify-content:center;flex-wrap:nowrap}
+.steps button{font:600 12.5px var(--f-body);white-space:nowrap;color:var(--cinza);background:transparent;border:1px solid var(--linha);border-radius:99px;padding:8px 11px;cursor:pointer;transition:color .3s,background .3s,border-color .3s}
+.steps button.on{color:var(--caverna);background:var(--faisca);border-color:var(--faisca)}
+.screen img.sl{opacity:0;transform:scale(1.04);transition:opacity .5s,transform .7s}
+.screen img.sl.on{opacity:1;transform:scale(1)}
+
+/* cena 3: liga de foco */
+.league{width:min(100%,460px);background:var(--rocha);border:1px solid var(--linha);border-radius:26px;padding:20px 18px;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+.league .hd{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.league .hd b{font-family:var(--f-display);font-size:18px;letter-spacing:-.02em}
+.league .hd small{color:var(--cinza);font-size:12px}
+.rows{position:relative;height:calc(4 * 58px)}
+.rw{position:absolute;left:0;right:0;height:50px;display:grid;grid-template-columns:30px 36px 1fr auto;align-items:center;gap:10px;padding:0 12px;border-radius:14px;background:var(--rocha2);transition:transform .55s cubic-bezier(.5,0,.2,1),background .3s;font-variant-numeric:tabular-nums}
+.rw .pos{font-weight:700;color:var(--cinza)}
+.rw .av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:var(--caverna);background:var(--c)}
+.rw .nm{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rw .hr{font-family:var(--f-display);font-weight:700;font-size:16px}
+.rw.me{background:linear-gradient(90deg,rgba(255,88,53,.28),rgba(255,88,53,.08));box-shadow:inset 0 0 0 1.5px rgba(255,88,53,.6)}
+.rw.me .pos{color:var(--faisca)}
+.goal{margin-top:16px}
+.goal .gl{display:flex;justify-content:space-between;font-size:13px;color:var(--cinza);margin-bottom:8px}
+.goal .gl b{color:var(--areia)}
+.track{height:10px;border-radius:99px;background:var(--rocha2);overflow:hidden}
+.track i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--faisca),var(--brasa));border-radius:99px}
+.ex{font-size:12px;color:var(--cinza);margin-top:12px}
+.crown{display:inline-block;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+
+/* cena 4: conquista vira post */
+.post{position:relative;height:min(56svh,600px);aspect-ratio:9/16;max-width:100%;perspective:1100px}
+.post .card{position:absolute;inset:0;border-radius:26px;overflow:hidden;box-shadow:0 0 0 1.5px rgba(255,255,255,.1),0 40px 120px rgba(255,88,53,.3);transform-style:preserve-3d;will-change:transform}
+.post .card img{width:100%;height:100%;object-fit:cover;display:block}
+.post .card .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.22) 48%,transparent 62%);mix-blend-mode:overlay;transform:translateX(var(--sx,-100%))}
+.chip{position:absolute;z-index:3;font-weight:600;font-size:13px;border-radius:99px;padding:9px 14px;background:rgba(28,27,29,.9);border:1px solid rgba(255,175,120,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);white-space:nowrap;will-change:transform}
+.chip b{color:var(--faisca)}
+
+/* blocos comuns */
+section.block{padding-block:clamp(80px,14vw,140px)}
+.rv{transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv:not(.in){opacity:0;transform:translateY(28px)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:34px}
+.tile{background:var(--rocha);border:1px solid var(--linha);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:transform .3s,border-color .3s}
+.tile:hover{transform:translateY(-3px);border-color:rgba(255,88,53,.4)}
+.tile svg{width:30px;height:30px}
+.tile h3{font-size:17px;letter-spacing:-.02em}
+.tile p{margin:0;color:var(--cinza);font-size:14.5px;line-height:1.45}
+.plans{display:grid;grid-template-columns:1fr;gap:14px;margin-top:34px}
+.plan{border-radius:26px;padding:26px 22px;background:var(--rocha);border:1px solid var(--linha);display:flex;flex-direction:column;gap:12px}
+.plan.plus{background:linear-gradient(160deg,rgba(255,88,53,.22),rgba(255,88,53,.04) 60%),var(--rocha);border-color:rgba(255,88,53,.45)}
+.plan .pr{font-family:var(--f-display);font-size:38px;letter-spacing:-.03em}
+.plan .pr small{font-family:var(--f-body);font-size:15px;color:var(--cinza);letter-spacing:0;font-weight:500}
+.plan ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;color:#CFC6BF;font-size:15px}
+.plan li{display:flex;gap:10px}
+.plan li::before{content:"";flex:none;width:7px;height:7px;margin-top:8px;border-radius:50%;background:var(--brasa)}
+.faq{margin-top:30px;display:flex;flex-direction:column;gap:10px}
+details{background:var(--rocha);border:1px solid var(--linha);border-radius:18px;padding:0 18px}
+summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:600;font-size:16.5px;display:flex;justify-content:space-between;gap:14px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-display);color:var(--brasa);font-size:22px;transition:transform .3s;flex:none}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 18px;color:#CFC6BF;font-size:15.5px}
+.final{position:relative;overflow:hidden;text-align:center;padding-block:clamp(100px,18vw,170px)}
+.final .glow{position:absolute;left:50%;top:40%;width:900px;max-width:160vw;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,88,53,.28),rgba(255,88,53,0) 60%)}
+.final .wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px}
+.final img{width:clamp(110px,28vw,150px);border-radius:24%;box-shadow:0 0 0 1.5px rgba(255,255,255,.08),0 30px 90px rgba(255,88,53,.4);animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px) rotate(-2deg)}}
+.final h2{font-size:clamp(46px,14vw,110px)}
+.stores{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.stores span{border:1.5px solid rgba(255,175,120,.4);border-radius:99px;padding:10px 18px;font-weight:600;font-size:15px}
+footer{border-top:1px solid var(--linha);padding-block:30px calc(30px + env(safe-area-inset-bottom,0px));color:var(--cinza);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+footer svg{height:24px;width:auto;display:block}
+
+@media (min-width:860px){
+  .stage .wrap{grid-template-columns:1fr auto;justify-items:start;align-items:center;gap:60px;padding-block:80px 30px}
+  .copy{min-height:260px}
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .plans{grid-template-columns:1fr 1fr}
+  .phone{height:min(74svh,680px)}
+  .post{height:min(72svh,640px)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero .sym path,.final img,.cue b,.soon i{animation:none}
+  .rv,.js .rv:not(.in){opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="gb" gradientUnits="userSpaceOnUse" x1="50" y1="6" x2="50" y2="94"><stop offset="0" stop-color="#FFB27C"/><stop offset=".45" stop-color="#FF5835"/><stop offset="1" stop-color="#D23C1C"/></linearGradient>
+</defs></svg>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="logo" href="#topo" aria-label="Desligaê, início"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="399" height="100" viewBox="0 0 399 100"><defs><linearGradient id="brasa" gradientUnits="userSpaceOnUse" x1="50" y1="6" x2="50" y2="94">
+<stop offset="0" stop-color="#FFB27C"/><stop offset=".45" stop-color="#FF5835"/><stop offset="1" stop-color="#D23C1C"/></linearGradient>
+<linearGradient id="brasaDeep" gradientUnits="userSpaceOnUse" x1="50" y1="6" x2="50" y2="94">
+<stop offset="0" stop-color="#FF5835"/><stop offset="1" stop-color="#AE351E"/></linearGradient>
+<linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAF78"/><stop offset=".7" stop-color="#FF5835"/></linearGradient>
+<linearGradient id="egDeep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF5835"/><stop offset="1" stop-color="#AE351E"/></linearGradient></defs><g transform="translate(-14.00 0.00) scale(1.00000)"><g fill="none" stroke="url(#brasa)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)"><path d="M66.62 38.72 A27 27 0 1 1 33.38 38.72"/><path d="M50 55 L50 31"/><path d="M35 24 L50 9 L65 24"/></g></g><path fill="#F6F1EC" d="M117.72800000000001 69.964 116.054 56.696 118.224 52.355999999999995 116.11600000000001 46.9 119.09200000000001 22.223999999999997H132.236L128.578 51.302L130.81 69.964ZM120.456 52.294Q119.58800000000001 57.873999999999995 117.01500000000001 62.089999999999996Q114.44200000000001 66.306 110.50500000000001 68.631Q106.56800000000001 70.956 101.546 70.956Q96.33800000000001 70.956 92.40100000000001 68.631Q88.464 66.306 86.232 62.059Q84.0 57.812 84.0 52.294Q84.0 46.652 86.232 42.436Q88.464 38.22 92.40100000000001 35.864Q96.33800000000001 33.507999999999996 101.546 33.507999999999996Q106.56800000000001 33.507999999999996 110.50500000000001 35.833Q114.44200000000001 38.158 117.046 42.343Q119.65 46.528 120.456 52.294ZM96.834 52.294Q96.834 54.897999999999996 97.91900000000001 56.943999999999996Q99.004 58.989999999999995 100.92600000000002 60.137Q102.84800000000001 61.284 105.328 61.284Q107.932 61.284 110.226 60.137Q112.52000000000001 58.989999999999995 114.256 56.943999999999996Q115.992 54.897999999999996 116.86000000000001 52.294Q115.992 49.628 114.256 47.582Q112.52000000000001 45.536 110.226 44.358000000000004Q107.932 43.18 105.328 43.18Q102.84800000000001 43.18 100.92600000000002 44.358000000000004Q99.004 45.536 97.91900000000001 47.582Q96.834 49.628 96.834 52.294Z"/><path fill="#F6F1EC" d="M155.424 70.956Q148.97600000000003 70.956 143.923 68.6Q138.87 66.244 135.95600000000002 61.997Q133.04200000000003 57.75 133.04200000000003 52.108Q133.04200000000003 46.59 135.83200000000002 42.405Q138.622 38.22 143.48900000000003 35.864Q148.35600000000002 33.507999999999996 154.49400000000003 33.507999999999996Q160.88000000000002 33.507999999999996 165.375 36.266999999999996Q169.87 39.025999999999996 172.31900000000002 44.048Q174.76800000000003 49.07 174.76800000000003 55.89H143.27200000000002V48.263999999999996H167.63800000000003L163.484 50.93Q163.23600000000002 48.202 162.12 46.311Q161.00400000000002 44.42 159.175 43.428Q157.346 42.436 154.80400000000003 42.436Q152.014 42.436 150.03000000000003 43.552Q148.04600000000002 44.668 146.93 46.620999999999995Q145.81400000000002 48.574 145.81400000000002 51.178Q145.81400000000002 54.525999999999996 147.33300000000003 56.851Q148.852 59.176 151.79700000000003 60.416Q154.74200000000002 61.656 159.02 61.656Q162.92600000000002 61.656 166.80100000000002 60.632999999999996Q170.67600000000002 59.61 173.83800000000002 57.75V65.81Q170.18 68.28999999999999 165.49900000000002 69.62299999999999Q160.818 70.956 155.424 70.956Z"/><path fill="#F6F1EC" d="M219.036 58.432Q219.036 62.524 216.556 65.314Q214.07600000000002 68.104 209.488 69.53Q204.9 70.956 198.452 70.956Q191.818 70.956 186.827 69.344Q181.836 67.732 179.046 64.818Q176.256 61.903999999999996 176.07000000000002 58.06H188.904Q189.33800000000002 59.486 190.609 60.509Q191.88 61.532 193.988 62.059Q196.096 62.586 199.01000000000002 62.586Q202.792 62.586 204.745 61.842Q206.698 61.098 206.698 59.61Q206.698 58.432 205.21 57.843Q203.722 57.254 200.126 56.944L193.864 56.448Q187.602 56.013999999999996 183.913 54.556999999999995Q180.22400000000002 53.099999999999994 178.61200000000002 50.775Q177.0 48.45 177.0 45.474000000000004Q177.0 41.444 179.51100000000002 38.809Q182.02200000000002 36.174 186.517 34.840999999999994Q191.012 33.507999999999996 197.026 33.507999999999996Q202.978 33.507999999999996 207.62800000000001 35.05799999999999Q212.27800000000002 36.608 215.068 39.367Q217.858 42.126 218.292 45.846000000000004H205.458Q205.14800000000002 44.668 204.09400000000002 43.706999999999994Q203.04000000000002 42.745999999999995 201.18 42.126Q199.32000000000002 41.506 196.406 41.506Q192.996 41.506 191.229 42.25Q189.46200000000002 42.994 189.46200000000002 44.358000000000004Q189.46200000000002 45.412 190.54700000000003 46.032Q191.632 46.652 194.608 46.9L202.854 47.519999999999996Q208.99200000000002 47.891999999999996 212.526 49.287Q216.06 50.682 217.548 52.976Q219.036 55.269999999999996 219.036 58.432Z"/><path fill="#F6F1EC" d="M222.198 22.223999999999997H234.908V69.964H222.198Z"/><path fill="#F6F1EC" d="M239.682 34.004 246.06799999999998 35.244 252.39199999999997 34.004V69.964H239.682ZM246.00599999999997 31.089999999999996Q242.71999999999997 31.089999999999996 240.67399999999998 29.447Q238.62799999999996 27.804000000000002 238.62799999999996 24.951999999999998Q238.62799999999996 22.162 240.67399999999998 20.488Q242.71999999999997 18.814 246.00599999999997 18.814Q249.41599999999997 18.814 251.43099999999998 20.488Q253.44599999999997 22.162 253.44599999999997 24.951999999999998Q253.44599999999997 27.804000000000002 251.43099999999998 29.447Q249.41599999999997 31.089999999999996 246.00599999999997 31.089999999999996Z"/><path fill="#F6F1EC" d="M288.10400000000004 61.036V55.022L288.538 53.534V44.854L288.10400000000004 43.552V34.562H300.752V60.54Q300.752 67.05 297.71400000000006 71.69999999999999Q294.67600000000004 76.35 289.25100000000003 78.768Q283.826 81.18599999999999 276.44800000000004 81.18599999999999Q271.55 81.18599999999999 267.365 79.91499999999999Q263.18 78.644 259.026 76.164V66.616Q262.87 69.468 267.117 70.739Q271.36400000000003 72.01 275.642 72.01Q281.718 72.01 284.91100000000006 69.406Q288.10400000000004 66.80199999999999 288.10400000000004 61.036ZM272.914 66.244Q267.892 66.244 263.986 64.19800000000001Q260.08000000000004 62.152 257.817 58.463Q255.55400000000003 54.774 255.55400000000003 49.876Q255.55400000000003 44.916 257.817 41.257999999999996Q260.08000000000004 37.6 263.986 35.554Q267.892 33.507999999999996 272.914 33.507999999999996Q276.634 33.507999999999996 279.73400000000004 34.655Q282.834 35.802 285.252 37.693Q287.67 39.584 289.313 41.785Q290.956 43.986 291.824 46.156Q292.692 48.326 292.692 50.0Q292.692 52.294 291.35900000000004 55.083999999999996Q290.026 57.873999999999995 287.48400000000004 60.416Q284.942 62.958 281.25300000000004 64.601Q277.564 66.244 272.914 66.244ZM277.192 57.626Q280.85 57.626 283.702 55.70399999999999Q286.55400000000003 53.782 288.538 49.876Q286.492 45.908 283.64 44.016999999999996Q280.788 42.126 277.192 42.126Q274.464 42.126 272.449 43.056Q270.434 43.986 269.38 45.753Q268.326 47.519999999999996 268.326 49.876Q268.326 52.17 269.38 53.937Q270.434 55.704 272.418 56.665Q274.40200000000004 57.626 277.192 57.626Z"/><path fill="#F6F1EC" d="M337.394 69.964 335.782 57.192 337.456 52.294 335.782 47.396 337.394 34.562H350.538L348.306 52.232L350.538 69.964ZM340.37 52.294Q339.502 57.873999999999995 336.929 62.089999999999996Q334.356 66.306 330.419 68.631Q326.482 70.956 321.46000000000004 70.956Q316.252 70.956 312.315 68.631Q308.378 66.306 306.14599999999996 62.059Q303.914 57.812 303.914 52.294Q303.914 46.652 306.14599999999996 42.436Q308.378 38.22 312.315 35.864Q316.252 33.507999999999996 321.46000000000004 33.507999999999996Q326.482 33.507999999999996 330.419 35.833Q334.356 38.158 336.96000000000004 42.343Q339.564 46.528 340.37 52.294ZM316.748 52.294Q316.748 54.897999999999996 317.83299999999997 56.943999999999996Q318.918 58.989999999999995 320.84000000000003 60.137Q322.762 61.284 325.242 61.284Q327.846 61.284 330.14 60.137Q332.434 58.989999999999995 334.17 56.943999999999996Q335.906 54.897999999999996 336.774 52.294Q335.906 49.628 334.17 47.582Q332.434 45.536 330.14 44.358000000000004Q327.846 43.18 325.242 43.18Q322.762 43.18 320.84000000000003 44.358000000000004Q318.918 45.536 317.83299999999997 47.582Q316.748 49.628 316.748 52.294Z"/><path fill="url(#eg)" d="M375.21400000000006 70.956Q368.766 70.956 363.713 68.6Q358.66 66.244 355.74600000000004 61.997Q352.83200000000005 57.75 352.83200000000005 52.108Q352.83200000000005 46.59 355.62200000000007 42.405Q358.41200000000003 38.22 363.279 35.864Q368.146 33.507999999999996 374.28400000000005 33.507999999999996Q380.67 33.507999999999996 385.165 36.266999999999996Q389.66 39.025999999999996 392.10900000000004 44.048Q394.55800000000005 49.07 394.55800000000005 55.89H363.062V48.263999999999996H387.42800000000005L383.27400000000006 50.93Q383.02600000000007 48.202 381.9100000000001 46.311Q380.79400000000004 44.42 378.96500000000003 43.428Q377.136 42.436 374.59400000000005 42.436Q371.80400000000003 42.436 369.82000000000005 43.552Q367.836 44.668 366.72 46.620999999999995Q365.60400000000004 48.574 365.60400000000004 51.178Q365.60400000000004 54.525999999999996 367.12300000000005 56.851Q368.64200000000005 59.176 371.58700000000005 60.416Q374.53200000000004 61.656 378.81000000000006 61.656Q382.716 61.656 386.591 60.632999999999996Q390.466 59.61 393.62800000000004 57.75V65.81Q389.97 68.28999999999999 385.28900000000004 69.62299999999999Q380.60800000000006 70.956 375.21400000000006 70.956ZM367.77400000000006 19.372H380.7320000000001L389.59800000000007 31.089999999999996H379.61600000000004L371.30800000000005 22.472H377.19800000000004L368.95200000000006 31.089999999999996H358.9080000000001Z"/></svg></a>
+    <a class="btn btn-hot" href="https://www.instagram.com/desligae.app/" target="_blank" rel="noopener">Seguir</a>
+  </div>
+  <div class="progress" id="prog"></div>
+</header>
+
+<main id="topo">
+  <section class="hero">
+    <canvas id="embers" aria-hidden="true"></canvas>
+    <div class="glow"></div>
+    <div class="wrap">
+      <span class="soon"><i></i>Em breve na App Store</span>
+      <svg class="sym" viewBox="0 0 100 100" aria-hidden="true">
+        <g fill="none" stroke="url(#gb)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)">
+          <path pathLength="1" d="M66.62 38.72 A27 27 0 1 1 33.38 38.72"/><path pathLength="1" d="M50 55 L50 31"/><path pathLength="1" d="M35 24 L50 9 L65 24"/>
+        </g>
+      </svg>
+      <h1><span>Desligue o Celular.</span><span class="on">Ligue a sua vida.</span></h1>
+      <p>Foco, finanças, agenda, hábitos, metas e desafios com amigos. Tudo num app só.</p>
+      <div class="ctas">
+        <a class="btn btn-hot" href="https://www.instagram.com/desligae.app/" target="_blank" rel="noopener">Quero ser avisado</a>
+        <a class="btn btn-ghost" href="#desliga">Ver como funciona</a>
+      </div>
+    </div>
+    <div class="cue" aria-hidden="true">Role<b></b></div>
+  </section>
+
+  <div class="ticker" aria-hidden="true"><div class="row" id="tick"></div></div>
+
+  <!-- CENA 1 -->
+  <section class="scene" id="desliga" data-scene="power" style="height:340svh">
+    <div class="stage"><div class="wrap">
+      <div class="copy">
+        <div class="cap" data-cap="0"><p class="eyebrow">23:47, mais uma vez</p><h2>Você pegou o celular <em>só pra ver a hora.</em></h2><p>E uma notificação puxou a outra.</p></div>
+        <div class="cap off" data-cap="1"><p class="eyebrow">Um toque</p><h2>Desliga <em>aê.</em></h2><p>Os apps que te distraem ficam bloqueados enquanto você foca.</p></div>
+        <div class="cap off" data-cap="2"><p class="eyebrow">Modo foco</p><h2>E liga no que <em>importa.</em></h2><p>Cada minuto vira foco registrado. Bateu 2h30 no dia? Conquista desbloqueada.</p></div>
+      </div>
+      <div class="phone"><div class="screen">
+        <div class="island"></div>
+        <div class="lock" id="lock">
+          <div class="date">terça-feira, 20 de outubro</div>
+          <div class="time">23:47</div>
+          <div class="notes" id="notes">
+            <div class="note" style="--c:#3DBE6A"><span class="ic"></span><span><b>Grupo da família</b><small>37 mensagens novas</small></span></div>
+            <div class="note" style="--c:#E1306C"><span class="ic"></span><span><b>Alguém comentou no seu post</b><small>agora</small></span></div>
+            <div class="note" style="--c:#FF3B30"><span class="ic"></span><span><b>Vídeo recomendado pra você</b><small>há 2 min</small></span></div>
+            <div class="note" style="--c:#FF9500"><span class="ic"></span><span><b>Oferta relâmpago</b><small>termina em 10 min</small></span></div>
+            <div class="note" style="--c:#5856D6"><span class="ic"></span><span><b>12 notificações não lidas</b><small>toque para ver</small></span></div>
+            <div class="note" style="--c:#00B2FF"><span class="ic"></span><span><b>Seu feed tem novidades</b><small>há 5 min</small></span></div>
+          </div>
+        </div>
+        <div class="shut" id="shut"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="url(#gb)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)"><path d="M66.62 38.72 A27 27 0 1 1 33.38 38.72"/><path d="M50 55 L50 31"/><path d="M35 24 L50 9 L65 24"/></g></svg></div>
+        <div class="focus" id="focus">
+          <div class="ring">
+            <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#26242A" stroke-width="9"/><circle id="arc" cx="60" cy="60" r="52" fill="none" stroke="url(#gb2)" stroke-width="9" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+              <defs><linearGradient id="gb2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB27C"/><stop offset="1" stop-color="#FF5835"/></linearGradient></defs></svg>
+            <div class="t"><span class="lbl">Foco hoje</span><span class="clock" id="clock">00:00:00</span></div>
+          </div>
+          <span class="blocked">6 apps bloqueados</span>
+          <span class="badge" id="badge">2h30 de foco · conquista!</span>
+        </div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- CENA 2 -->
+  <section class="scene" id="vida" data-scene="life" style="height:420svh">
+    <div class="stage"><div class="wrap">
+      <div class="copy">
+        <div class="cap" data-cap="0"><p class="eyebrow">Minha vida</p><h2>Um app. <em>Sua vida inteira.</em></h2><p>Seu dia num painel: o que falta, o que já foi e o que vem.</p></div>
+        <div class="cap off" data-cap="1"><p class="eyebrow">Finanças</p><h2>Seu dinheiro <em>sob controle.</em></h2><p>Gastos, cartões e parcelas, com gráficos que mostram para onde vai cada real.</p></div>
+        <div class="cap off" data-cap="2"><p class="eyebrow">Agenda</p><h2>Compromissos <em>sem esquecer.</em></h2><p>Tarefas do dia, lembretes e o que dá pra remarcar com um toque.</p></div>
+        <div class="cap off" data-cap="3"><p class="eyebrow">Hábitos e metas</p><h2>Constância <em>que aparece.</em></h2><p>Sequências de hábitos e o ritmo de cada meta, semana a semana.</p></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+        <div class="phone"><div class="screen">
+          <img class="sl on" src="img/hub.jpg" alt="Tela Minha vida do Desligaê com os módulos do dia">
+          <img class="sl" src="img/fin-graficos.jpg" alt="Tela de Finanças com gráfico de gastos do mês" loading="lazy">
+          <img class="sl" src="img/agenda.jpg" alt="Tela de Agenda com tarefas do dia" loading="lazy">
+          <img class="sl" src="img/habitos.jpg" alt="Tela de Hábitos com sequências" loading="lazy">
+        </div></div>
+        <div class="steps" id="steps" role="group" aria-label="Escolher módulo">
+          <button type="button" class="on" data-i="0">Minha vida</button><button type="button" data-i="1">Finanças</button><button type="button" data-i="2">Agenda</button><button type="button" data-i="3">Hábitos</button>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- CENA 3 -->
+  <section class="scene" id="desafios" data-scene="league" style="height:300svh">
+    <div class="stage"><div class="wrap">
+      <div class="copy">
+        <div class="cap"><p class="eyebrow">Clãs e Liga de Foco</p><h2>Quem foca mais, <em>vence.</em></h2><p>Monte um clã com os amigos, definam uma meta da semana e disputem quem foca mais. Role e veja você subir.</p></div>
+      </div>
+      <div class="league">
+        <div class="hd"><b>Liga de Foco <span class="crown" id="crown">🏆</span></b><small>clã Madrugada · esta semana</small></div>
+        <div class="rows" id="rows">
+          <div class="rw" data-id="ana" style="--c:#FFAF78"><span class="pos"></span><span class="av">A</span><span class="nm">Ana</span><span class="hr"></span></div>
+          <div class="rw" data-id="bruno" style="--c:#C9B8AE"><span class="pos"></span><span class="av">B</span><span class="nm">Bruno</span><span class="hr"></span></div>
+          <div class="rw me" data-id="voce" style="--c:#FF5835"><span class="pos"></span><span class="av">V</span><span class="nm">Você</span><span class="hr"></span></div>
+          <div class="rw" data-id="carla" style="--c:#AE351E"><span class="pos"></span><span class="av">C</span><span class="nm">Carla</span><span class="hr"></span></div>
+        </div>
+        <div class="goal"><div class="gl"><span>Meta coletiva da semana</span><b id="gtxt">0h de 20h</b></div><div class="track"><i id="gbar"></i></div></div>
+        <p class="ex">Exemplo ilustrativo. No app, o clã só vê o total de horas de cada um.</p>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- CENA 4 -->
+  <section class="scene" id="conquistas" data-scene="post" style="height:260svh">
+    <div class="stage"><div class="wrap">
+      <div class="copy">
+        <div class="cap"><p class="eyebrow">Conquistas</p><h2>Cada conquista <em>vira post.</em></h2><p>Bateu sua meta? O app monta a arte com seus números reais pra você mostrar nos Stories. Valores em dinheiro ficam escondidos, a não ser que você queira mostrar.</p></div>
+      </div>
+      <div class="post" id="post">
+        <div class="card" id="card"><img src="img/arte-semana.jpg" alt="Arte de Stories gerada pelo app com 4h16 de foco na semana" loading="lazy"><div class="shine"></div></div>
+        <span class="chip" style="left:-12%;top:14%" data-depth="1.2">🔥 <b>2h30</b> de foco</span>
+        <span class="chip" style="right:-14%;top:44%" data-depth="-1">Semana <b>produtiva</b></span>
+        <span class="chip" style="left:-6%;bottom:12%" data-depth="0.8">Meta <b>concluída</b></span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <p class="eyebrow rv">Tudo que vem no app</p>
+      <h2 class="rv">Feito pra sua <em>rotina inteira.</em></h2>
+      <div class="grid">
+        <div class="tile rv"><svg viewBox="0 0 100 100"><g fill="none" stroke="url(#gb)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)"><path d="M66.62 38.72 A27 27 0 1 1 33.38 38.72"/><path d="M50 55 L50 31"/><path d="M35 24 L50 9 L65 24"/></g></svg><h3>Foco e bloqueio</h3><p>Cronômetro e bloqueio dos apps que distraem, com o Tempo de Uso do iPhone.</p></div>
+        <div class="tile rv"><svg viewBox="0 0 100 100"><g fill="none" stroke="url(#gb)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="34"/><path d="M50 26 V74 M62 36 H45 A8 8 0 0 0 45 52 H55 A8 8 0 0 1 55 68 H38"/></g></svg><h3>Finanças</h3><p>Gastos, cartões, parcelas e orçamento por categoria.</p></div>
+        <div class="tile rv"><svg viewBox="0 0 100 100"><g fill="none" stroke="url(#gb)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="22" width="68" height="62" rx="12"/><path d="M16 42 H84 M34 12 V28 M66 12 V28"/></g></svg><h3>Agenda</h3><p>Tarefas, compromissos repetidos e lembretes.</p></div>
+        <div class="tile rv"><svg viewBox="0 0 100 100"><g fill="none" stroke="url(#gb)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 52 L40 72 L80 30"/></g></svg><h3>Hábitos</h3><p>Sequências, recordes e o dia esquecido marcado depois.</p></div>
+        <div class="tile rv"><svg viewBox="0 0 100 100"><g fill="none" stroke="url(#gb)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="16"/></g></svg><h3>Metas</h3><p>Progresso em %, ritmo necessário e o "+1" rápido.</p></div>
+        <div class="tile rv"><svg viewBox="0 0 100 100"><g fill="none" stroke="url(#gb)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M28 14 H62 L78 30 V86 H28 Z"/><path d="M40 50 H66 M40 66 H58"/></g></svg><h3>Notas</h3><p>Notas favoritas, checklists e tarefa criada da nota.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow rv">Planos</p>
+      <h2 class="rv">Comece <em>de graça.</em></h2>
+      <div class="plans">
+        <div class="plan rv"><b>Gratuito</b><div class="pr">R$ 0</div><ul><li>Foco com cronômetro e bloqueio</li><li>Minha vida com todos os módulos, dentro dos limites do plano</li><li>Clãs, desafios e conquistas</li></ul></div>
+        <div class="plan plus rv"><b>Plus</b><div class="pr">R$ 9 <small>/mês</small></div><ul><li>Limites maiores em todos os módulos</li><li>Mais artes para compartilhar</li><li>Pra quem já sentiu a diferença e quer ir além</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow rv">Perguntas</p>
+      <h2 class="rv">Antes de <em>baixar.</em></h2>
+      <div class="faq">
+        <details class="rv"><summary>Quando o app lança?</summary><p>Em breve na App Store. Siga @desligae.app no Instagram para saber no dia.</p></details>
+        <details class="rv"><summary>Tem para Android?</summary><p>A versão para Google Play também está a caminho.</p></details>
+        <details class="rv"><summary>Quem vê meus dados?</summary><p>O bloqueio usa o Tempo de Uso da Apple, e essas informações ficam no seu iPhone. No clã, seus amigos só veem o total de horas de foco, e só se você permitir.</p></details>
+        <details class="rv"><summary>Preciso de amigos pra usar?</summary><p>Não. Dá para usar sozinho. Clãs e desafios são opcionais.</p></details>
+        <details class="rv"><summary>Quanto custa?</summary><p>É grátis para começar. O Plus custa R$ 9 por mês para quem quiser limites maiores.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="glow"></div>
+    <div class="wrap">
+      <img src="img/icone.png" alt="Ícone do app Desligaê">
+      <h2 class="rv">Em <em>breve.</em></h2>
+      <div class="stores rv"><span>App Store</span><span>Google Play</span></div>
+      <p class="lead rv" style="text-align:center">Desligue o Celular. Ligue a sua vida.</p>
+      <a class="btn btn-hot rv" href="https://www.instagram.com/desligae.app/" target="_blank" rel="noopener">Seguir @desligae.app</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="399" height="100" viewBox="0 0 399 100"><defs><linearGradient id="brasa" gradientUnits="userSpaceOnUse" x1="50" y1="6" x2="50" y2="94">
+<stop offset="0" stop-color="#FFB27C"/><stop offset=".45" stop-color="#FF5835"/><stop offset="1" stop-color="#D23C1C"/></linearGradient>
+<linearGradient id="brasaDeep" gradientUnits="userSpaceOnUse" x1="50" y1="6" x2="50" y2="94">
+<stop offset="0" stop-color="#FF5835"/><stop offset="1" stop-color="#AE351E"/></linearGradient>
+<linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAF78"/><stop offset=".7" stop-color="#FF5835"/></linearGradient>
+<linearGradient id="egDeep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF5835"/><stop offset="1" stop-color="#AE351E"/></linearGradient></defs><g transform="translate(-14.00 0.00) scale(1.00000)"><g fill="none" stroke="url(#brasa)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)"><path d="M66.62 38.72 A27 27 0 1 1 33.38 38.72"/><path d="M50 55 L50 31"/><path d="M35 24 L50 9 L65 24"/></g></g><path fill="#F6F1EC" d="M117.72800000000001 69.964 116.054 56.696 118.224 52.355999999999995 116.11600000000001 46.9 119.09200000000001 22.223999999999997H132.236L128.578 51.302L130.81 69.964ZM120.456 52.294Q119.58800000000001 57.873999999999995 117.01500000000001 62.089999999999996Q114.44200000000001 66.306 110.50500000000001 68.631Q106.56800000000001 70.956 101.546 70.956Q96.33800000000001 70.956 92.40100000000001 68.631Q88.464 66.306 86.232 62.059Q84.0 57.812 84.0 52.294Q84.0 46.652 86.232 42.436Q88.464 38.22 92.40100000000001 35.864Q96.33800000000001 33.507999999999996 101.546 33.507999999999996Q106.56800000000001 33.507999999999996 110.50500000000001 35.833Q114.44200000000001 38.158 117.046 42.343Q119.65 46.528 120.456 52.294ZM96.834 52.294Q96.834 54.897999999999996 97.91900000000001 56.943999999999996Q99.004 58.989999999999995 100.92600000000002 60.137Q102.84800000000001 61.284 105.328 61.284Q107.932 61.284 110.226 60.137Q112.52000000000001 58.989999999999995 114.256 56.943999999999996Q115.992 54.897999999999996 116.86000000000001 52.294Q115.992 49.628 114.256 47.582Q112.52000000000001 45.536 110.226 44.358000000000004Q107.932 43.18 105.328 43.18Q102.84800000000001 43.18 100.92600000000002 44.358000000000004Q99.004 45.536 97.91900000000001 47.582Q96.834 49.628 96.834 52.294Z"/><path fill="#F6F1EC" d="M155.424 70.956Q148.97600000000003 70.956 143.923 68.6Q138.87 66.244 135.95600000000002 61.997Q133.04200000000003 57.75 133.04200000000003 52.108Q133.04200000000003 46.59 135.83200000000002 42.405Q138.622 38.22 143.48900000000003 35.864Q148.35600000000002 33.507999999999996 154.49400000000003 33.507999999999996Q160.88000000000002 33.507999999999996 165.375 36.266999999999996Q169.87 39.025999999999996 172.31900000000002 44.048Q174.76800000000003 49.07 174.76800000000003 55.89H143.27200000000002V48.263999999999996H167.63800000000003L163.484 50.93Q163.23600000000002 48.202 162.12 46.311Q161.00400000000002 44.42 159.175 43.428Q157.346 42.436 154.80400000000003 42.436Q152.014 42.436 150.03000000000003 43.552Q148.04600000000002 44.668 146.93 46.620999999999995Q145.81400000000002 48.574 145.81400000000002 51.178Q145.81400000000002 54.525999999999996 147.33300000000003 56.851Q148.852 59.176 151.79700000000003 60.416Q154.74200000000002 61.656 159.02 61.656Q162.92600000000002 61.656 166.80100000000002 60.632999999999996Q170.67600000000002 59.61 173.83800000000002 57.75V65.81Q170.18 68.28999999999999 165.49900000000002 69.62299999999999Q160.818 70.956 155.424 70.956Z"/><path fill="#F6F1EC" d="M219.036 58.432Q219.036 62.524 216.556 65.314Q214.07600000000002 68.104 209.488 69.53Q204.9 70.956 198.452 70.956Q191.818 70.956 186.827 69.344Q181.836 67.732 179.046 64.818Q176.256 61.903999999999996 176.07000000000002 58.06H188.904Q189.33800000000002 59.486 190.609 60.509Q191.88 61.532 193.988 62.059Q196.096 62.586 199.01000000000002 62.586Q202.792 62.586 204.745 61.842Q206.698 61.098 206.698 59.61Q206.698 58.432 205.21 57.843Q203.722 57.254 200.126 56.944L193.864 56.448Q187.602 56.013999999999996 183.913 54.556999999999995Q180.22400000000002 53.099999999999994 178.61200000000002 50.775Q177.0 48.45 177.0 45.474000000000004Q177.0 41.444 179.51100000000002 38.809Q182.02200000000002 36.174 186.517 34.840999999999994Q191.012 33.507999999999996 197.026 33.507999999999996Q202.978 33.507999999999996 207.62800000000001 35.05799999999999Q212.27800000000002 36.608 215.068 39.367Q217.858 42.126 218.292 45.846000000000004H205.458Q205.14800000000002 44.668 204.09400000000002 43.706999999999994Q203.04000000000002 42.745999999999995 201.18 42.126Q199.32000000000002 41.506 196.406 41.506Q192.996 41.506 191.229 42.25Q189.46200000000002 42.994 189.46200000000002 44.358000000000004Q189.46200000000002 45.412 190.54700000000003 46.032Q191.632 46.652 194.608 46.9L202.854 47.519999999999996Q208.99200000000002 47.891999999999996 212.526 49.287Q216.06 50.682 217.548 52.976Q219.036 55.269999999999996 219.036 58.432Z"/><path fill="#F6F1EC" d="M222.198 22.223999999999997H234.908V69.964H222.198Z"/><path fill="#F6F1EC" d="M239.682 34.004 246.06799999999998 35.244 252.39199999999997 34.004V69.964H239.682ZM246.00599999999997 31.089999999999996Q242.71999999999997 31.089999999999996 240.67399999999998 29.447Q238.62799999999996 27.804000000000002 238.62799999999996 24.951999999999998Q238.62799999999996 22.162 240.67399999999998 20.488Q242.71999999999997 18.814 246.00599999999997 18.814Q249.41599999999997 18.814 251.43099999999998 20.488Q253.44599999999997 22.162 253.44599999999997 24.951999999999998Q253.44599999999997 27.804000000000002 251.43099999999998 29.447Q249.41599999999997 31.089999999999996 246.00599999999997 31.089999999999996Z"/><path fill="#F6F1EC" d="M288.10400000000004 61.036V55.022L288.538 53.534V44.854L288.10400000000004 43.552V34.562H300.752V60.54Q300.752 67.05 297.71400000000006 71.69999999999999Q294.67600000000004 76.35 289.25100000000003 78.768Q283.826 81.18599999999999 276.44800000000004 81.18599999999999Q271.55 81.18599999999999 267.365 79.91499999999999Q263.18 78.644 259.026 76.164V66.616Q262.87 69.468 267.117 70.739Q271.36400000000003 72.01 275.642 72.01Q281.718 72.01 284.91100000000006 69.406Q288.10400000000004 66.80199999999999 288.10400000000004 61.036ZM272.914 66.244Q267.892 66.244 263.986 64.19800000000001Q260.08000000000004 62.152 257.817 58.463Q255.55400000000003 54.774 255.55400000000003 49.876Q255.55400000000003 44.916 257.817 41.257999999999996Q260.08000000000004 37.6 263.986 35.554Q267.892 33.507999999999996 272.914 33.507999999999996Q276.634 33.507999999999996 279.73400000000004 34.655Q282.834 35.802 285.252 37.693Q287.67 39.584 289.313 41.785Q290.956 43.986 291.824 46.156Q292.692 48.326 292.692 50.0Q292.692 52.294 291.35900000000004 55.083999999999996Q290.026 57.873999999999995 287.48400000000004 60.416Q284.942 62.958 281.25300000000004 64.601Q277.564 66.244 272.914 66.244ZM277.192 57.626Q280.85 57.626 283.702 55.70399999999999Q286.55400000000003 53.782 288.538 49.876Q286.492 45.908 283.64 44.016999999999996Q280.788 42.126 277.192 42.126Q274.464 42.126 272.449 43.056Q270.434 43.986 269.38 45.753Q268.326 47.519999999999996 268.326 49.876Q268.326 52.17 269.38 53.937Q270.434 55.704 272.418 56.665Q274.40200000000004 57.626 277.192 57.626Z"/><path fill="#F6F1EC" d="M337.394 69.964 335.782 57.192 337.456 52.294 335.782 47.396 337.394 34.562H350.538L348.306 52.232L350.538 69.964ZM340.37 52.294Q339.502 57.873999999999995 336.929 62.089999999999996Q334.356 66.306 330.419 68.631Q326.482 70.956 321.46000000000004 70.956Q316.252 70.956 312.315 68.631Q308.378 66.306 306.14599999999996 62.059Q303.914 57.812 303.914 52.294Q303.914 46.652 306.14599999999996 42.436Q308.378 38.22 312.315 35.864Q316.252 33.507999999999996 321.46000000000004 33.507999999999996Q326.482 33.507999999999996 330.419 35.833Q334.356 38.158 336.96000000000004 42.343Q339.564 46.528 340.37 52.294ZM316.748 52.294Q316.748 54.897999999999996 317.83299999999997 56.943999999999996Q318.918 58.989999999999995 320.84000000000003 60.137Q322.762 61.284 325.242 61.284Q327.846 61.284 330.14 60.137Q332.434 58.989999999999995 334.17 56.943999999999996Q335.906 54.897999999999996 336.774 52.294Q335.906 49.628 334.17 47.582Q332.434 45.536 330.14 44.358000000000004Q327.846 43.18 325.242 43.18Q322.762 43.18 320.84000000000003 44.358000000000004Q318.918 45.536 317.83299999999997 47.582Q316.748 49.628 316.748 52.294Z"/><path fill="url(#eg)" d="M375.21400000000006 70.956Q368.766 70.956 363.713 68.6Q358.66 66.244 355.74600000000004 61.997Q352.83200000000005 57.75 352.83200000000005 52.108Q352.83200000000005 46.59 355.62200000000007 42.405Q358.41200000000003 38.22 363.279 35.864Q368.146 33.507999999999996 374.28400000000005 33.507999999999996Q380.67 33.507999999999996 385.165 36.266999999999996Q389.66 39.025999999999996 392.10900000000004 44.048Q394.55800000000005 49.07 394.55800000000005 55.89H363.062V48.263999999999996H387.42800000000005L383.27400000000006 50.93Q383.02600000000007 48.202 381.9100000000001 46.311Q380.79400000000004 44.42 378.96500000000003 43.428Q377.136 42.436 374.59400000000005 42.436Q371.80400000000003 42.436 369.82000000000005 43.552Q367.836 44.668 366.72 46.620999999999995Q365.60400000000004 48.574 365.60400000000004 51.178Q365.60400000000004 54.525999999999996 367.12300000000005 56.851Q368.64200000000005 59.176 371.58700000000005 60.416Q374.53200000000004 61.656 378.81000000000006 61.656Q382.716 61.656 386.591 60.632999999999996Q390.466 59.61 393.62800000000004 57.75V65.81Q389.97 68.28999999999999 385.28900000000004 69.62299999999999Q380.60800000000006 70.956 375.21400000000006 70.956ZM367.77400000000006 19.372H380.7320000000001L389.59800000000007 31.089999999999996H379.61600000000004L371.30800000000005 22.472H377.19800000000004L368.95200000000006 31.089999999999996H358.9080000000001Z"/></svg><span>© 2026 Desligaê · Desligue o Celular. Ligue a sua vida.</span></div></footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('js');
+  var clamp = function(v,a,b){return Math.min(b,Math.max(a,v));};
+  var seg = function(p,a,b){return clamp((p-a)/(b-a),0,1);};
+  var ease = function(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;};
+
+  /* revelar ao entrar na tela */
+  var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+  /* faixa */
+  var words=['FOCO','FINANÇAS','AGENDA','HÁBITOS','METAS','NOTAS','CLÃS','DESAFIOS','CONQUISTAS'], tick=document.getElementById('tick'), html='';
+  for(var k=0;k<4;k++) words.forEach(function(w){html+='<span>'+w+'</span><span>•</span>';});
+  tick.innerHTML=html;
+
+  /* brasas do topo */
+  var cv=document.getElementById('embers'), cx=cv.getContext('2d'), P=[], heroVisible=true;
+  function size(){var r=cv.getBoundingClientRect(), d=Math.min(2,window.devicePixelRatio||1); cv.width=r.width*d; cv.height=r.height*d; cx.setTransform(d,0,0,d,0,0);}
+  size(); window.addEventListener('resize',size);
+  for(var i=0;i<46;i++) P.push({x:Math.random(),y:Math.random(),r:.6+Math.random()*1.8,v:.15+Math.random()*.45,w:Math.random()*6.28,a:.25+Math.random()*.6});
+  function embers(){
+    if(heroVisible){
+      var W=cv.clientWidth,H=cv.clientHeight; cx.clearRect(0,0,W,H);
+      P.forEach(function(p){p.y-=p.v/H*2.2; p.w+=.02; if(p.y<-.02){p.y=1.02;p.x=Math.random();}
+        var x=p.x*W+Math.sin(p.w)*8, y=p.y*H; cx.beginPath(); cx.arc(x,y,p.r,0,6.28);
+        cx.fillStyle='rgba(255,'+(120+Math.round(p.r*30))+',70,'+(p.a*(0.4+0.6*p.y))+')'; cx.fill();});
+    }
+    if(!reduce) requestAnimationFrame(embers);
+  }
+  embers();
+  new IntersectionObserver(function(e){heroVisible=e[0].isIntersecting;}).observe(document.querySelector('.hero'));
+
+  /* cenas */
+  var scenes=[].slice.call(document.querySelectorAll('[data-scene]'));
+  var notes=[].slice.call(document.querySelectorAll('#notes .note'));
+  var lock=document.getElementById('lock'), shut=document.getElementById('shut'), shutSvg=shut.querySelector('svg'), focus=document.getElementById('focus');
+  var arc=document.getElementById('arc'), clock=document.getElementById('clock'), badge=document.getElementById('badge');
+  var slides=[].slice.call(document.querySelectorAll('#vida .sl')), stepBtns=[].slice.call(document.querySelectorAll('#steps button'));
+  var rows=[].slice.call(document.querySelectorAll('#rows .rw')), gbar=document.getElementById('gbar'), gtxt=document.getElementById('gtxt'), crown=document.getElementById('crown');
+  var card=document.getElementById('card'), chips=[].slice.call(document.querySelectorAll('#post .chip'));
+  var bar=document.getElementById('bar'), prog=document.getElementById('prog');
+
+  function caps(scene,idx){scene.querySelectorAll('.cap').forEach(function(c,i){c.classList.toggle('off',i!==idx);});}
+  function hhmm(h){var m=Math.round(h*60);return Math.floor(m/60)+'h'+String(m%60).padStart(2,'0');}
+
+  var lifeIdx=0;
+  function setLife(i){ if(i===lifeIdx) return; lifeIdx=i; slides.forEach(function(s,k){s.classList.toggle('on',k===i);}); stepBtns.forEach(function(b,k){b.classList.toggle('on',k===i);}); caps(document.getElementById('vida'),i); }
+  stepBtns.forEach(function(b){b.addEventListener('click',function(){
+    var s=document.getElementById('vida'), i=+b.dataset.i, top=s.offsetTop, len=s.offsetHeight-innerHeight;
+    window.scrollTo({top:top+len*((i+.5)/4),behavior:reduce?'auto':'smooth'});
+  });});
+
+  var people={ana:{h0:6.8,h1:6.8},bruno:{h0:4.1,h1:4.4},voce:{h0:3.2,h1:7.1},carla:{h0:2.6,h1:3.0}};
+
+  function frame(){
+    var y=scrollY, vh=innerHeight, docH=document.documentElement.scrollHeight-vh;
+    bar.classList.toggle('solid', y>40);
+    prog.style.transform='scaleX('+clamp(y/docH,0,1)+')';
+    tick.style.transform='translateX('+(-(y*0.35)%1400)+'px)';
+
+    scenes.forEach(function(s){
+      var r=s.getBoundingClientRect(), len=s.offsetHeight-vh, p=clamp(-r.top/len,0,1);
+      if(r.bottom<-vh||r.top>vh*1.5) return;
+      var kind=s.dataset.scene;
+      if(kind==='power'){
+        notes.forEach(function(n,i){var t=ease(seg(p,.02+i*.045,.08+i*.045)); n.style.opacity=t; n.style.transform='translateY('+(30*(1-t))+'px) scale('+(.94+.06*t)+')';});
+        var off=seg(p,.36,.48), on=seg(p,.5,.58);
+        lock.style.filter='brightness('+(1-off*.9)+') blur('+(off*6)+'px)';
+        shut.style.opacity=Math.max(off, 1-on);
+        if(p<.36) shut.style.opacity=0;
+        var press=seg(p,.38,.5); shutSvg.style.opacity=press*(1-on); shutSvg.style.transform='scale('+(.6+.5*ease(press)-.12*seg(p,.46,.5))+')';
+        focus.style.opacity=on;
+        var f=seg(p,.58,.92), secs=Math.round(f*9000);
+        arc.style.strokeDashoffset=326.7*(1-f);
+        clock.textContent=[Math.floor(secs/3600),Math.floor(secs%3600/60),secs%60].map(function(v){return String(v).padStart(2,'0');}).join(':');
+        badge.classList.toggle('on', f>=1);
+        caps(s, p<.4?0:(p<.56?1:2));
+      } else if(kind==='life'){
+        setLife(Math.min(3,Math.floor(p*4)));
+      } else if(kind==='league'){
+        var t=ease(seg(p,.1,.85)), list=Object.keys(people).map(function(id){var o=people[id];return {id:id,h:o.h0+(o.h1-o.h0)*t};});
+        list.sort(function(a,b){return b.h-a.h;});
+        list.forEach(function(o,rank){var el=rows.find(function(r){return r.dataset.id===o.id;}); el.style.transform='translateY('+(rank*58)+'px)'; el.querySelector('.pos').textContent=(rank+1)+'º'; el.querySelector('.hr').textContent=hhmm(o.h);});
+        var total=list.reduce(function(a,o){return a+o.h;},0);
+        gbar.style.width=clamp(total/20*100,0,100)+'%'; gtxt.textContent=total>=20?'Meta batida! 20h':hhmm(total).replace('h00','h')+' de 20h';
+        crown.style.transform=list[0].id==='voce'?'scale(1.35) rotate(-8deg)':'scale(1)';
+      } else if(kind==='post'){
+        var q=p*2-1;
+        card.style.transform='rotateY('+(q*-22)+'deg) rotateX('+(6-Math.abs(q)*6)+'deg) translateZ(0)';
+        card.style.setProperty('--sx',(-100+p*200)+'%');
+        chips.forEach(function(c){c.style.transform='translateY('+(q*-60*(+c.dataset.depth))+'px)';});
+      }
+    });
+    ticking=false;
+  }
+  var ticking=false;
+  function onScroll(){ if(!ticking){ticking=true; requestAnimationFrame(frame);} }
+  addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll);
+  frame();
+})();
+</script>
+
+</body>
+</html>
