@@ -1,0 +1,21 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "URZ6PSC999.com.victorhugosolidade.pausa.prototype"
+        ],
+        "components": [
+          {
+            "/": "/convite/*",
+            "comment": "Convites de clã/desafio e indicações em /convite/r/CODE"
+          },
+          {
+            "/": "/r/*",
+            "comment": "Link de indicação quando DESLIGAE_INVITE_URL é a raiz do domínio"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+/* Caverna: preto mineral, laranja e tipografia condensada do sistema. */
+:root{
+  color-scheme:dark;
+  --bg:#0B0C0E;--surface:#1C1B1D;--accent:#FF5835;--accent-light:#FFAF78;--text:#F6F1EC;--muted:#DCC4B5;--line:#FFFFFF1F;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  color:var(--text);background:var(--bg);
+  -webkit-text-size-adjust:100%;text-size-adjust:100%;
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;background:
+  radial-gradient(ellipse at 100% 0%,#FF58351F,transparent 58%),
+  linear-gradient(160deg,transparent 55%,#FFFFFF05 55%,#FFFFFF05 78%,transparent 78%),var(--bg)}
+main{max-width:620px;margin:auto;padding:max(28px,env(safe-area-inset-top)) 20px max(36px,env(safe-area-inset-bottom))}
+.brand{display:flex;align-items:center;gap:10px}
+.brand strong{font-size:22px;font-weight:900;font-stretch:condensed;letter-spacing:-.2px}
+.mark{width:40px;height:40px}
+.mark .badge{fill:#FF58351A;stroke:var(--accent);stroke-width:1.6}
+.mark .peak{fill:var(--accent-light)}
+h1,h2,.code-box strong,.button,.secondary,.eyebrow{font-stretch:condensed}
+h1{font-size:clamp(34px,9vw,58px);line-height:1.02;font-weight:900;letter-spacing:-1px;margin:36px 0 18px}
+.hero{font-size:clamp(42px,11vw,72px)}
+h2{font-size:26px;font-weight:900;margin:6px 0 4px}
+.lead{font-size:18px;color:var(--muted);margin:0}
+.eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:2px;color:var(--accent-light);margin:34px 0 0;text-transform:uppercase}
+.eyebrow::before{content:"";width:16px;height:2px;background:var(--accent)}
+.panel .eyebrow{margin-top:0}
+.benefits{list-style:none;padding:0;margin:0 0 26px;display:grid;gap:12px}
+.benefits li{position:relative;padding-left:22px;font-size:16px;line-height:1.45;color:var(--muted)}
+.benefits li::before{content:"";position:absolute;left:0;top:.45em;width:10px;height:10px;background:var(--accent);clip-path:polygon(50% 0,94% 24%,94% 74%,50% 100%,6% 74%,6% 24%)}
+.benefits strong{color:var(--text);font-weight:800}
+.panel{padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:18px;margin-top:24px}
+.code-box{display:grid;gap:6px;padding:16px;border-radius:14px;background:#0B0C0E;border:1px solid #FF583555;margin-bottom:6px}
+.code-box span{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--accent-light)}
+.code-box strong{font:900 clamp(26px,8vw,38px)/1.1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:2px;word-break:break-all;color:var(--text)}
+label{display:block;margin:20px 0 9px;font-size:14px;color:var(--muted)}
+input{width:100%;border:1px solid #FFFFFF40;border-radius:12px;background:#0B0C0E;color:var(--text);font:inherit;letter-spacing:1px;padding:15px}
+.actions{display:grid;gap:10px;margin-top:14px}
+button,.button,.secondary{display:block;text-align:center;text-decoration:none;padding:15px 20px;border-radius:13px;color:var(--text);font:800 16px system-ui,-apple-system,sans-serif;font-stretch:condensed;border:1px solid #FFFFFF26;cursor:pointer;margin-top:10px;width:100%}
+button,.button{background:linear-gradient(135deg,var(--accent-light),var(--accent));color:var(--bg);border-color:#FFFFFF38}
+.secondary{background:#FFFFFF0D;color:var(--text)}
+.actions .button,.actions .secondary{margin-top:0}
+button:disabled{opacity:.5;cursor:wait}
+:focus-visible{outline:3px solid var(--accent-light);outline-offset:3px}
+.status{line-height:1.5;color:var(--muted);margin:12px 0 0}
+.status:empty{display:none}
+.hint{margin:2px 0 0;font-size:14px;color:var(--muted);text-align:center}
+dl{display:grid;grid-template-columns:1fr 1.5fr;gap:12px;font-size:14px}
+dt{color:var(--muted)}dd{margin:0}
+#terms,.note,footer{font-size:13px;line-height:1.6;color:var(--muted)}
+.note{padding:14px 4px 0}
+footer{padding-top:28px;border-top:1px solid var(--line);margin-top:28px}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media(prefers-contrast:more){:root{--muted:#F6F1EC;--line:#FFFFFF66}}
+
+.brand .logo{height:32px;width:auto;display:block}
+footer a{color:var(--accent-light)}
