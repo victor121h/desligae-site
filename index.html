@@ -304,6 +304,7 @@ details p{margin:0 0 18px;color:#CFC6BF;font-size:15.5px}
 footer{border-top:1px solid var(--linha);background:var(--caverna);padding-block:30px calc(30px + env(safe-area-inset-bottom,0px));color:var(--cinza);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
 footer svg{height:24px;width:auto;display:block}
+.flinks{display:flex;gap:18px;flex-wrap:wrap}.flinks a{color:var(--cinza);text-decoration:none;font-weight:600}.flinks a:hover{color:var(--areia)}
 
 @media (min-width:860px){
   .stage .wrap{grid-template-columns:minmax(0,1fr) auto;justify-items:start;align-items:center;gap:60px;padding-block:80px 30px}
@@ -683,7 +684,7 @@ footer svg{height:24px;width:auto;display:block}
   </section>
 </main>
 
-<footer><div class="wrap"><svg aria-hidden="true" viewBox="0 0 399 100" width="399" height="100"><use href="#wm"/></svg><span>© 2026 Desligaê · Desligue o Celular. Ligue a sua vida.</span></div></footer>
+<footer><div class="wrap"><svg aria-hidden="true" viewBox="0 0 399 100" width="399" height="100"><use href="#wm"/></svg><nav class="flinks" aria-label="Informações"><a href="privacidade/">Privacidade</a><a href="termos/">Termos</a><a href="suporte/">Suporte</a></nav><span>© 2026 Desligaê · Desligue o Celular. Ligue a sua vida.</span></div></footer>
 
 <script>
 (function(){

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0C0E">
+<title>Suporte · Desligaê</title>
+<meta name="description" content="Ajuda com o Desligaê: bloqueio de apps, conta, assinatura Plus, clãs e contato.">
+<link rel="icon" href="/img/icone.png">
+<link rel="canonical" href="https://desligae.com/suporte/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Figtree:wght@400;600&display=swap">
+<style>
+:root{--caverna:#0B0C0E;--rocha:#1C1B1D;--rocha2:#26242A;--brasa:#FF5835;--faisca:#FFAF78;--areia:#F6F1EC;--texto:#D9D1CB;--cinza:#A39C96;--linha:rgba(246,241,236,.10);
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;--f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(120% 60% at 50% -10%,#2a1610 0%,var(--caverna) 55%) fixed,var(--caverna);color:var(--texto);font-family:var(--f-body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--faisca);text-underline-offset:3px}a:hover{color:var(--areia)}
+.bar{position:sticky;top:0;z-index:5;background:rgba(11,12,14,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--linha);padding-top:env(safe-area-inset-top,0px)}
+.bar .in{max-width:860px;margin:0 auto;height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.bar svg{height:26px;width:auto;display:block}
+.bar nav{display:flex;gap:16px;font-size:14px;font-weight:600}
+.bar nav a{color:var(--cinza);text-decoration:none}.bar nav a[aria-current]{color:var(--areia)}
+main{max-width:760px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));padding-block:44px 80px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--faisca);margin:0 0 10px}
+h1{font-family:var(--f-display);font-weight:700;letter-spacing:-.035em;line-height:1.05;color:var(--areia);font-size:clamp(34px,8vw,54px);margin:0;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:600;letter-spacing:-.025em;line-height:1.15;color:var(--areia);font-size:clamp(20px,4.6vw,25px);margin:46px 0 12px;scroll-margin-top:80px;text-wrap:balance}
+h3{color:var(--areia);font-size:17px;margin:24px 0 6px}
+p,li{max-width:68ch}ul,ol{padding-left:22px}li{margin:6px 0}
+strong{color:var(--areia)}
+.meta{color:var(--cinza);font-size:14px;margin:14px 0 0}
+.tldr{margin-top:28px;background:linear-gradient(160deg,rgba(255,88,53,.14),rgba(255,88,53,.03) 60%),var(--rocha);border:1px solid rgba(255,88,53,.35);border-radius:22px;padding:20px 22px}
+.tldr h2{margin-top:0;font-size:18px}.tldr ul{margin:0}
+.toc{margin-top:22px;border:1px solid var(--linha);border-radius:18px;padding:14px 20px;background:rgba(28,27,29,.6)}
+.toc summary{cursor:pointer;font-weight:600;color:var(--areia)}
+.toc ol{margin:10px 0 4px;font-size:15px}
+.tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--linha);border-radius:16px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px;line-height:1.45}
+th,td{text-align:left;vertical-align:top;padding:11px 13px;border-bottom:1px solid var(--linha)}
+th{color:var(--areia);background:var(--rocha);font-weight:600}tr:last-child td{border-bottom:0}
+.note{border-left:3px solid var(--brasa);padding:4px 0 4px 14px;color:var(--texto);margin:16px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:22px}
+.card{background:var(--rocha);border:1px solid var(--linha);border-radius:18px;padding:16px 18px}
+.card b{display:block;color:var(--areia);margin-bottom:4px}
+details.q{background:var(--rocha);border:1px solid var(--linha);border-radius:16px;padding:0 18px;margin:10px 0}
+details.q summary{list-style:none;cursor:pointer;padding:15px 0;font-weight:600;color:var(--areia);display:flex;justify-content:space-between;gap:12px}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::after{content:"+";color:var(--brasa);font-family:var(--f-display);font-size:20px;line-height:1;transition:transform .25s;flex:none}
+details.q[open] summary::after{transform:rotate(45deg)}
+details.q>div{padding:0 0 14px}
+footer{border-top:1px solid var(--linha);color:var(--cinza);font-size:14px}
+footer .in{max-width:860px;margin:0 auto;padding:26px max(18px,env(safe-area-inset-right,0px)) calc(26px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between}
+footer nav{display:flex;gap:16px;flex-wrap:wrap}
+:focus-visible{outline:2px solid var(--faisca);outline-offset:3px;border-radius:6px}
+@media print{body{background:#fff;color:#000}.bar,footer{display:none}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="in"><a href="/" aria-label="Desligaê, página inicial"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="399" height="100" viewBox="0 0 399 100"><defs><linearGradient id="brasa" gradientUnits="userSpaceOnUse" x1="50" y1="6" x2="50" y2="94">
+<stop offset="0" stop-color="#FFB27C"/><stop offset=".45" stop-color="#FF5835"/><stop offset="1" stop-color="#D23C1C"/></linearGradient>
+<linearGradient id="brasaDeep" gradientUnits="userSpaceOnUse" x1="50" y1="6" x2="50" y2="94">
+<stop offset="0" stop-color="#FF5835"/><stop offset="1" stop-color="#AE351E"/></linearGradient>
+<linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAF78"/><stop offset=".7" stop-color="#FF5835"/></linearGradient>
+<linearGradient id="egDeep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF5835"/><stop offset="1" stop-color="#AE351E"/></linearGradient></defs><g transform="translate(-14.00 0.00) scale(1.00000)"><g fill="none" stroke="url(#brasa)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)"><path d="M66.62 38.72 A27 27 0 1 1 33.38 38.72"/><path d="M50 55 L50 31"/><path d="M35 24 L50 9 L65 24"/></g></g><path fill="#F6F1EC" d="M117.72800000000001 69.964 116.054 56.696 118.224 52.355999999999995 116.11600000000001 46.9 119.09200000000001 22.223999999999997H132.236L128.578 51.302L130.81 69.964ZM120.456 52.294Q119.58800000000001 57.873999999999995 117.01500000000001 62.089999999999996Q114.44200000000001 66.306 110.50500000000001 68.631Q106.56800000000001 70.956 101.546 70.956Q96.33800000000001 70.956 92.40100000000001 68.631Q88.464 66.306 86.232 62.059Q84.0 57.812 84.0 52.294Q84.0 46.652 86.232 42.436Q88.464 38.22 92.40100000000001 35.864Q96.33800000000001 33.507999999999996 101.546 33.507999999999996Q106.56800000000001 33.507999999999996 110.50500000000001 35.833Q114.44200000000001 38.158 117.046 42.343Q119.65 46.528 120.456 52.294ZM96.834 52.294Q96.834 54.897999999999996 97.91900000000001 56.943999999999996Q99.004 58.989999999999995 100.92600000000002 60.137Q102.84800000000001 61.284 105.328 61.284Q107.932 61.284 110.226 60.137Q112.52000000000001 58.989999999999995 114.256 56.943999999999996Q115.992 54.897999999999996 116.86000000000001 52.294Q115.992 49.628 114.256 47.582Q112.52000000000001 45.536 110.226 44.358000000000004Q107.932 43.18 105.328 43.18Q102.84800000000001 43.18 100.92600000000002 44.358000000000004Q99.004 45.536 97.91900000000001 47.582Q96.834 49.628 96.834 52.294Z"/><path fill="#F6F1EC" d="M155.424 70.956Q148.97600000000003 70.956 143.923 68.6Q138.87 66.244 135.95600000000002 61.997Q133.04200000000003 57.75 133.04200000000003 52.108Q133.04200000000003 46.59 135.83200000000002 42.405Q138.622 38.22 143.48900000000003 35.864Q148.35600000000002 33.507999999999996 154.49400000000003 33.507999999999996Q160.88000000000002 33.507999999999996 165.375 36.266999999999996Q169.87 39.025999999999996 172.31900000000002 44.048Q174.76800000000003 49.07 174.76800000000003 55.89H143.27200000000002V48.263999999999996H167.63800000000003L163.484 50.93Q163.23600000000002 48.202 162.12 46.311Q161.00400000000002 44.42 159.175 43.428Q157.346 42.436 154.80400000000003 42.436Q152.014 42.436 150.03000000000003 43.552Q148.04600000000002 44.668 146.93 46.620999999999995Q145.81400000000002 48.574 145.81400000000002 51.178Q145.81400000000002 54.525999999999996 147.33300000000003 56.851Q148.852 59.176 151.79700000000003 60.416Q154.74200000000002 61.656 159.02 61.656Q162.92600000000002 61.656 166.80100000000002 60.632999999999996Q170.67600000000002 59.61 173.83800000000002 57.75V65.81Q170.18 68.28999999999999 165.49900000000002 69.62299999999999Q160.818 70.956 155.424 70.956Z"/><path fill="#F6F1EC" d="M219.036 58.432Q219.036 62.524 216.556 65.314Q214.07600000000002 68.104 209.488 69.53Q204.9 70.956 198.452 70.956Q191.818 70.956 186.827 69.344Q181.836 67.732 179.046 64.818Q176.256 61.903999999999996 176.07000000000002 58.06H188.904Q189.33800000000002 59.486 190.609 60.509Q191.88 61.532 193.988 62.059Q196.096 62.586 199.01000000000002 62.586Q202.792 62.586 204.745 61.842Q206.698 61.098 206.698 59.61Q206.698 58.432 205.21 57.843Q203.722 57.254 200.126 56.944L193.864 56.448Q187.602 56.013999999999996 183.913 54.556999999999995Q180.22400000000002 53.099999999999994 178.61200000000002 50.775Q177.0 48.45 177.0 45.474000000000004Q177.0 41.444 179.51100000000002 38.809Q182.02200000000002 36.174 186.517 34.840999999999994Q191.012 33.507999999999996 197.026 33.507999999999996Q202.978 33.507999999999996 207.62800000000001 35.05799999999999Q212.27800000000002 36.608 215.068 39.367Q217.858 42.126 218.292 45.846000000000004H205.458Q205.14800000000002 44.668 204.09400000000002 43.706999999999994Q203.04000000000002 42.745999999999995 201.18 42.126Q199.32000000000002 41.506 196.406 41.506Q192.996 41.506 191.229 42.25Q189.46200000000002 42.994 189.46200000000002 44.358000000000004Q189.46200000000002 45.412 190.54700000000003 46.032Q191.632 46.652 194.608 46.9L202.854 47.519999999999996Q208.99200000000002 47.891999999999996 212.526 49.287Q216.06 50.682 217.548 52.976Q219.036 55.269999999999996 219.036 58.432Z"/><path fill="#F6F1EC" d="M222.198 22.223999999999997H234.908V69.964H222.198Z"/><path fill="#F6F1EC" d="M239.682 34.004 246.06799999999998 35.244 252.39199999999997 34.004V69.964H239.682ZM246.00599999999997 31.089999999999996Q242.71999999999997 31.089999999999996 240.67399999999998 29.447Q238.62799999999996 27.804000000000002 238.62799999999996 24.951999999999998Q238.62799999999996 22.162 240.67399999999998 20.488Q242.71999999999997 18.814 246.00599999999997 18.814Q249.41599999999997 18.814 251.43099999999998 20.488Q253.44599999999997 22.162 253.44599999999997 24.951999999999998Q253.44599999999997 27.804000000000002 251.43099999999998 29.447Q249.41599999999997 31.089999999999996 246.00599999999997 31.089999999999996Z"/><path fill="#F6F1EC" d="M288.10400000000004 61.036V55.022L288.538 53.534V44.854L288.10400000000004 43.552V34.562H300.752V60.54Q300.752 67.05 297.71400000000006 71.69999999999999Q294.67600000000004 76.35 289.25100000000003 78.768Q283.826 81.18599999999999 276.44800000000004 81.18599999999999Q271.55 81.18599999999999 267.365 79.91499999999999Q263.18 78.644 259.026 76.164V66.616Q262.87 69.468 267.117 70.739Q271.36400000000003 72.01 275.642 72.01Q281.718 72.01 284.91100000000006 69.406Q288.10400000000004 66.80199999999999 288.10400000000004 61.036ZM272.914 66.244Q267.892 66.244 263.986 64.19800000000001Q260.08000000000004 62.152 257.817 58.463Q255.55400000000003 54.774 255.55400000000003 49.876Q255.55400000000003 44.916 257.817 41.257999999999996Q260.08000000000004 37.6 263.986 35.554Q267.892 33.507999999999996 272.914 33.507999999999996Q276.634 33.507999999999996 279.73400000000004 34.655Q282.834 35.802 285.252 37.693Q287.67 39.584 289.313 41.785Q290.956 43.986 291.824 46.156Q292.692 48.326 292.692 50.0Q292.692 52.294 291.35900000000004 55.083999999999996Q290.026 57.873999999999995 287.48400000000004 60.416Q284.942 62.958 281.25300000000004 64.601Q277.564 66.244 272.914 66.244ZM277.192 57.626Q280.85 57.626 283.702 55.70399999999999Q286.55400000000003 53.782 288.538 49.876Q286.492 45.908 283.64 44.016999999999996Q280.788 42.126 277.192 42.126Q274.464 42.126 272.449 43.056Q270.434 43.986 269.38 45.753Q268.326 47.519999999999996 268.326 49.876Q268.326 52.17 269.38 53.937Q270.434 55.704 272.418 56.665Q274.40200000000004 57.626 277.192 57.626Z"/><path fill="#F6F1EC" d="M337.394 69.964 335.782 57.192 337.456 52.294 335.782 47.396 337.394 34.562H350.538L348.306 52.232L350.538 69.964ZM340.37 52.294Q339.502 57.873999999999995 336.929 62.089999999999996Q334.356 66.306 330.419 68.631Q326.482 70.956 321.46000000000004 70.956Q316.252 70.956 312.315 68.631Q308.378 66.306 306.14599999999996 62.059Q303.914 57.812 303.914 52.294Q303.914 46.652 306.14599999999996 42.436Q308.378 38.22 312.315 35.864Q316.252 33.507999999999996 321.46000000000004 33.507999999999996Q326.482 33.507999999999996 330.419 35.833Q334.356 38.158 336.96000000000004 42.343Q339.564 46.528 340.37 52.294ZM316.748 52.294Q316.748 54.897999999999996 317.83299999999997 56.943999999999996Q318.918 58.989999999999995 320.84000000000003 60.137Q322.762 61.284 325.242 61.284Q327.846 61.284 330.14 60.137Q332.434 58.989999999999995 334.17 56.943999999999996Q335.906 54.897999999999996 336.774 52.294Q335.906 49.628 334.17 47.582Q332.434 45.536 330.14 44.358000000000004Q327.846 43.18 325.242 43.18Q322.762 43.18 320.84000000000003 44.358000000000004Q318.918 45.536 317.83299999999997 47.582Q316.748 49.628 316.748 52.294Z"/><path fill="url(#eg)" d="M375.21400000000006 70.956Q368.766 70.956 363.713 68.6Q358.66 66.244 355.74600000000004 61.997Q352.83200000000005 57.75 352.83200000000005 52.108Q352.83200000000005 46.59 355.62200000000007 42.405Q358.41200000000003 38.22 363.279 35.864Q368.146 33.507999999999996 374.28400000000005 33.507999999999996Q380.67 33.507999999999996 385.165 36.266999999999996Q389.66 39.025999999999996 392.10900000000004 44.048Q394.55800000000005 49.07 394.55800000000005 55.89H363.062V48.263999999999996H387.42800000000005L383.27400000000006 50.93Q383.02600000000007 48.202 381.9100000000001 46.311Q380.79400000000004 44.42 378.96500000000003 43.428Q377.136 42.436 374.59400000000005 42.436Q371.80400000000003 42.436 369.82000000000005 43.552Q367.836 44.668 366.72 46.620999999999995Q365.60400000000004 48.574 365.60400000000004 51.178Q365.60400000000004 54.525999999999996 367.12300000000005 56.851Q368.64200000000005 59.176 371.58700000000005 60.416Q374.53200000000004 61.656 378.81000000000006 61.656Q382.716 61.656 386.591 60.632999999999996Q390.466 59.61 393.62800000000004 57.75V65.81Q389.97 68.28999999999999 385.28900000000004 69.62299999999999Q380.60800000000006 70.956 375.21400000000006 70.956ZM367.77400000000006 19.372H380.7320000000001L389.59800000000007 31.089999999999996H379.61600000000004L371.30800000000005 22.472H377.19800000000004L368.95200000000006 31.089999999999996H358.9080000000001Z"/></svg></a><nav aria-label="Páginas legais"><a href="/privacidade/">Privacidade</a><a href="/termos/">Termos</a><a href="/suporte/" aria-current="page">Suporte</a></nav></div></header>
+<main>
+
+<p class="eyebrow">Suporte</p>
+<h1>Como podemos ajudar?</h1>
+<p class="meta">Respostas rápidas sobre o app. Se não encontrar o que precisa, fale com a gente por mensagem direta no Instagram <a href="https://www.instagram.com/desligae.app/">@desligae.app</a>. Conte o modelo do iPhone, a versão do iOS e o que aconteceu.</p>
+
+<div class="cards">
+  <div class="card"><b>Contato</b>Mensagem direta no Instagram <a href="https://www.instagram.com/desligae.app/">@desligae.app</a>.</div>
+  <div class="card"><b>Privacidade</b>O que coletamos e como excluir sua conta: <a href="/privacidade/">Política de Privacidade</a>.</div>
+  <div class="card"><b>Regras</b>Plano, assinatura e comunidade: <a href="/termos/">Termos de Uso</a>.</div>
+</div>
+
+<h2>Foco e bloqueio</h2>
+<details class="q"><summary>Como bloquear os apps que me distraem?</summary><div><p>Na aba Foco, escolha os apps e as regras de bloqueio. Na primeira vez, o iPhone pede permissão para o Desligaê usar o Tempo de Uso: toque em Continuar e confirme com o seu código ou Face ID. A escolha dos apps fica só no seu aparelho.</p></div></details>
+<details class="q"><summary>O bloqueio não funcionou. O que fazer?</summary><div><p>Confira em Ajustes → Tempo de Uso se ele está ativo e se o Desligaê continua com permissão. Depois feche o app e abra de novo. Atualizar o iOS e reiniciar o iPhone também costumam resolver. O bloqueio depende do sistema da Apple e pode ser desativado pelo próprio iPhone em algumas situações.</p></div></details>
+<details class="q"><summary>O cronômetro conta mesmo com o app fechado?</summary><div><p>Sim. O app guarda a hora em que você começou e, ao voltar, retoma a contagem. O tempo em andamento aparece na tela bloqueada pela Atividade ao Vivo.</p></div></details>
+
+<h2>Conta</h2>
+<details class="q"><summary>Não recebi o e-mail de confirmação</summary><div><p>Veja a caixa de spam e a aba Promoções. Confira se o e-mail foi digitado certo e peça um novo código pelo app. Se não chegar, fale com a gente.</p></div></details>
+<details class="q"><summary>Como mudar meu nome ou minha foto?</summary><div><p>Na aba Você, toque no seu perfil. A foto é privada e só você vê.</p></div></details>
+<details class="q"><summary>Como excluir minha conta?</summary><div><p>Em Você → Excluir conta. Se você administra um clã com outras pessoas, passe a administração para alguém antes. Excluir a conta apaga seus dados do servidor e do iPhone, mas não cancela o Plus na Apple. <a href="/privacidade/#excluir">Veja o que é apagado.</a></p></div></details>
+<details class="q"><summary>Como exportar meus dados?</summary><div><p>Em Minha vida dá para exportar uma cópia completa em JSON, e as finanças também saem em CSV. Para outros dados, peça pelo contato.</p></div></details>
+
+<h2>Plus e pagamentos</h2>
+<details class="q"><summary>Quanto custa e como cancelar?</summary><div><p>O Plus custa R$ 9 por mês, cobrado pela Apple, com renovação automática. Para cancelar, vá em Ajustes do iPhone → seu nome → Assinaturas → Desligaê. O acesso continua até o fim do período pago.</p></div></details>
+<details class="q"><summary>Paguei e o Plus não apareceu</summary><div><p>Em Você → Seu plano, toque em Restaurar compras com a mesma conta Apple da compra. Se continuar sem o Plus, fale com a gente informando a data da compra.</p></div></details>
+<details class="q"><summary>Como pedir reembolso?</summary><div><p>Quem processa os pagamentos é a Apple, então o pedido de reembolso é feito em <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</p></div></details>
+
+<h2>Clãs, desafios e indicações</h2>
+<details class="q"><summary>O que meus amigos veem de mim no clã?</summary><div><p>Veem seu nome público, os desafios e metas do clã e o progresso que você informa. Na Liga de Foco, que só funciona se você aceitar, aparece o total de minutos de foco da semana. Horários, apps, finanças, notas e a sua foto nunca aparecem.</p></div></details>
+<details class="q"><summary>Como sair da Liga de Foco ou de um clã?</summary><div><p>Abra o clã em Desafios. Lá você pode sair da Liga ou sair do clã. Ao sair da Liga, seus minutos deixam de aparecer a partir da semana atual.</p></div></details>
+<details class="q"><summary>Alguém está me incomodando</summary><div><p>Em Você → Bloquear ou denunciar, escolha a pessoa. O bloqueio impede novos convites, e a denúncia chega à equipe. Em caso de ameaça ou perigo, procure também as autoridades.</p></div></details>
+<details class="q"><summary>Minha indicação não contou</summary><div><p>Uma indicação conta depois que o amigo confirma o e-mail. Ela pode não valer em caso de autoindicação, conta repetida ou e-mail descartável. O status de cada indicação aparece em Você → Indique amigos.</p></div></details>
+
+</main>
+<footer><div class="in"><span>© 2026 Desligaê · Desligue o Celular. Ligue a sua vida.</span><nav><a href="/">Início</a><a href="/privacidade/">Privacidade</a><a href="/termos/">Termos</a><a href="/suporte/">Suporte</a></nav></div></footer>
+</body>
+</html>
