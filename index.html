@@ -373,6 +373,19 @@ footer svg{height:24px;width:auto;display:block}
 @keyframes pwNudge{0%,100%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-50%) scale(1.06)}60%{transform:translate(-50%,-50%) scale(.97)}}
 .pw-btn:focus-visible{outline:2px solid var(--faisca);outline-offset:8px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* lista de espera */
+.wl{width:min(100%,460px);display:flex;flex-direction:column;gap:12px;text-align:left;margin-top:6px;scroll-margin-top:90px}
+.wl-l{font-weight:600;color:var(--areia);font-size:15px}
+.wl-row{display:flex;gap:8px;flex-wrap:wrap}
+.wl-row input{flex:1 1 200px;min-width:0;font:500 16px var(--f-body);color:var(--areia);background:rgba(28,27,29,.9);border:1.5px solid rgba(255,175,120,.35);border-radius:999px;padding:13px 18px;outline:none}
+.wl-row input:focus{border-color:var(--faisca);box-shadow:0 0 0 4px rgba(255,88,53,.18)}
+.wl-row .btn{flex:0 0 auto;border:0;cursor:pointer;font-family:var(--f-body)}
+.wl-c{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.45;color:var(--cinza)}
+.wl-c input{margin-top:3px;accent-color:#FF5835;flex:none;width:16px;height:16px}
+.wl-c a{color:var(--faisca)}
+.wl-s{min-height:1.4em;margin:0;font-size:14px;color:var(--faisca)}
+.wl-s.ok{color:#9BE29B}
 </style>
 </head>
 <body>
@@ -429,7 +442,7 @@ footer svg{height:24px;width:auto;display:block}
       <h1><span>Desligue o Celular.</span><span class="on">Ligue a sua vida.</span></h1>
       <p>Foco, finanças, agenda, hábitos, metas e desafios com amigos. Tudo num app só.</p>
       <div class="ctas">
-        <a class="btn btn-hot" href="https://www.instagram.com/desligae.app/" target="_blank" rel="noopener">Quero ser avisado</a>
+        <a class="btn btn-hot" href="#lista">Quero ser avisado</a>
         <a class="btn btn-ghost" href="#desliga">Ver como funciona</a>
       </div>
     </div>
@@ -679,7 +692,13 @@ footer svg{height:24px;width:auto;display:block}
       <h2 class="rv">Em <em>breve.</em></h2>
       <div class="stores rv"><span>App Store</span><span>Google Play</span></div>
       <p class="lead rv" style="text-align:center">Desligue o Celular. Ligue a sua vida.</p>
-      <a class="btn btn-hot rv" href="https://www.instagram.com/desligae.app/" target="_blank" rel="noopener">Seguir @desligae.app</a>
+      <form class="wl rv" id="lista" novalidate>
+        <label for="wlEmail" class="wl-l">Avise-me no lançamento</label>
+        <div class="wl-row"><input id="wlEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="seu@email.com" required maxlength="254"><button type="submit" class="btn btn-hot" id="wlBtn">Me avise</button></div>
+        <label class="wl-c" for="wlOk"><input type="checkbox" id="wlOk" required> Quero receber por e-mail o aviso de lançamento do Desligaê. Posso sair da lista quando quiser (<a href="privacidade/#site">privacidade</a>).</label>
+        <p class="wl-s" id="wlMsg" role="status" aria-live="polite"></p>
+      </form>
+      <a class="btn btn-ghost rv" href="https://www.instagram.com/desligae.app/" target="_blank" rel="noopener">Seguir @desligae.app</a>
     </div>
   </section>
 </main>
@@ -1097,6 +1116,33 @@ footer svg{height:24px;width:auto;display:block}
       clearInterval(timer); if(e.isIntersecting&&on){ tick(); timer=setInterval(tick,1000); }
     },{threshold:.6}).observe(stage);
   }
+})();
+</script>
+
+<script>
+/* Lista de espera: grava só o e-mail, com consentimento, via função pública do Supabase */
+(function(){
+  var f=document.getElementById('lista'); if(!f) return;
+  var em=document.getElementById('wlEmail'), ok=document.getElementById('wlOk'), msg=document.getElementById('wlMsg'), btn=document.getElementById('wlBtn');
+  var URLRPC='https://isizbtcwtujgsdtcumam.supabase.co/rest/v1/rpc/desligae_waitlist_join', KEY='sb_publishable_3oVCAzYlV1q3ehSumKkVfA_EjCTK_tn';
+  function say(t,good){ msg.textContent=t; msg.className='wl-s'+(good?' ok':''); }
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(em.value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v)){ say('Confira o e-mail.'); em.focus(); return; }
+    if(!ok.checked){ say('Marque a caixa para receber o aviso.'); ok.focus(); return; }
+    btn.disabled=true; say('Enviando…');
+    var ctl=new AbortController(), to=setTimeout(function(){ctl.abort();},12000);
+    fetch(URLRPC,{method:'POST',credentials:'omit',cache:'no-store',referrerPolicy:'no-referrer',signal:ctl.signal,
+      headers:{'Content-Type':'application/json',apikey:KEY},body:JSON.stringify({p_payload:{email:v,consent:true,source:'site'}})})
+    .then(function(r){ return r.json().catch(function(){return {};}).then(function(b){ return {r:r,b:b}; }); })
+    .then(function(x){
+      if(x.r.ok&&x.b&&x.b.ok){ say('Pronto! Você vai saber assim que o Desligaê chegar na App Store.',true); f.reset(); }
+      else say((x.b&&typeof x.b.message==='string'&&x.b.message.length<160)?x.b.message:'Não deu para salvar agora. Tente de novo ou siga @desligae.app.');
+    })
+    .catch(function(){ say('Não deu para salvar agora. Tente de novo mais tarde ou siga @desligae.app no Instagram.'); })
+    .then(function(){ clearTimeout(to); btn.disabled=false; });
+  });
 })();
 </script>
 </body>
