@@ -66,13 +66,14 @@ footer nav{display:flex;gap:16px;flex-wrap:wrap}
 
 <p class="eyebrow">Política de Privacidade</p>
 <h1>Seus dados no Desligaê</h1>
-<p class="meta">Atualizada em 20 de outubro de 2026. Vale para o app Desligaê para iPhone e para o site desligae.com.</p>
+<p class="meta">Atualizada em 22 de outubro de 2026. Vale para o app Desligaê para iPhone e para o site desligae.com.</p>
 
 <section class="tldr" aria-labelledby="resumo">
   <h2 id="resumo">O resumo</h2>
   <ul>
-    <li>O que você usa do <strong>Tempo de Uso do iPhone</strong> (quais apps bloquear, regras e relatórios) <strong>fica no seu aparelho</strong>. Nós não recebemos.</li>
-    <li>Guardamos no servidor só o que o app precisa para funcionar em qualquer aparelho: sua conta, seus registros de foco e o que você escreve em Minha vida.</li>
+    <li>O que você usa do <strong>Tempo de Uso do iPhone</strong> (os apps que você escolhe, as regras e o tempo de uso) <strong>fica no seu aparelho</strong>. Nós não recebemos.</li>
+    <li>No servidor, guardamos o que o app precisa para funcionar em qualquer aparelho: sua conta, os dados das sessões de foco (início, fim e motivo do encerramento), o que você escreve em Minha vida e o que você cria ou informa nos clãs e desafios. Veja a lista completa na <a href="#servidor">seção 3</a>.</li>
+    <li>Nos clãs e desafios, os textos públicos passam por um <strong>filtro automático</strong>, e você pode denunciar ou bloquear pessoas. A equipe do Desligaê recebe um registro de cada bloqueio para analisar.</li>
     <li><strong>Não vendemos dados, não temos anúncios e não rastreamos você</strong> em outros apps ou sites.</li>
     <li>Métricas de desempenho e contagem de compartilhamentos só são enviadas <strong>se você ligar</strong>. Vêm desligadas.</li>
     <li>Você pode <strong>excluir a conta pelo próprio app</strong>, e isso apaga seus dados do servidor.</li>
@@ -101,37 +102,43 @@ footer nav{display:flex;gap:16px;flex-wrap:wrap}
 
 <h2 id="aparelho">2. O que fica só no seu iPhone</h2>
 <ul>
-  <li><strong>Tempo de Uso (Screen Time):</strong> os apps e categorias que você escolhe bloquear, as regras de bloqueio e os relatórios de uso. O iOS entrega esses dados de forma protegida ao app no seu aparelho, e eles não vão para o nosso servidor nem para rankings.</li>
-  <li>O cronômetro enquanto está rodando, as conquistas e celebrações, o tutorial, lembretes e avisos locais, e a Atividade ao Vivo na tela bloqueada.</li>
+  <li><strong>Tempo de Uso (Screen Time):</strong> os apps e categorias que você escolhe bloquear, os códigos protegidos (tokens) que o iOS usa para identificá-los, as regras de bloqueio, o tempo de uso e os relatórios de uso. O iOS entrega esses dados de forma protegida ao app no seu aparelho, e eles não vão para o nosso servidor nem para rankings.</li>
+  <li>A contagem do cronômetro em andamento (só a hora de início vai ao servidor), as conquistas e celebrações, o tutorial, lembretes e avisos locais, e a Atividade ao Vivo na tela bloqueada.</li>
+  <li>O registro de que você aceitou os Termos de Uso, por conta e por versão dos termos. Como ele fica só no aparelho, o app pode pedir o aceite de novo num iPhone novo ou depois de reinstalar o app.</li>
   <li>As artes que você gera para compartilhar só existem enquanto a tela de compartilhar está aberta. O app pede acesso apenas para <em>adicionar</em> imagens à sua galeria, nunca para ler as suas fotos.</li>
   <li>O app também mantém no aparelho uma cópia dos seus dados para funcionar sem internet. Essa cópia pode entrar no backup do iCloud, conforme a configuração do seu iPhone.</li>
 </ul>
 
 <h2 id="servidor">3. O que guardamos no servidor e por quê</h2>
+<p><strong>Sessões de foco:</strong> de cada sessão de foco concluída (cronômetro e sessões com bloqueio de apps), o servidor recebe o início, o fim e o motivo do encerramento. No cronômetro, a hora de início vai assim que você começa, para contar o limite do plano gratuito. Isso serve ao histórico e às conquistas e, se você entrar na Liga de Foco de um clã, ao total semanal mostrado ao clã. O servidor nunca recebe quais apps você escolheu, os códigos do Tempo de Uso nem quanto tempo você usou cada app. Em desafio competitivo, os participantes veem quantos pedidos de tempo extra cada um fez e quantos pontos custaram.</p>
 <p>O app exige uma conta para que seus dados acompanhem você entre aparelhos e para os recursos em grupo. As bases legais da LGPD usadas são a <strong>execução do contrato</strong> (prestar o serviço que você pediu), o <strong>legítimo interesse</strong> (segurança e prevenção de fraude) e o <strong>consentimento</strong> nos recursos opcionais.</p>
 <div class="tbl"><table>
 <thead><tr><th>Dado</th><th>Para quê</th><th>Base legal</th></tr></thead>
 <tbody>
 <tr><td>E-mail, identificador da conta e nome público (2 a 40 caracteres)</td><td>Criar e acessar a conta, identificar você nos clãs</td><td>Execução do contrato</td></tr>
 <tr><td>Foto de perfil (até 1024 px, sem metadados de local ou câmera)</td><td>Mostrar a sua foto <strong>só para você</strong>, em qualquer aparelho</td><td>Execução do contrato</td></tr>
-<tr><td>Registros de foco concluídos (início, fim e motivo), preferências de aviso e fuso horário</td><td>Histórico, relatórios, conquistas e metas</td><td>Execução do contrato</td></tr>
+<tr><td>Início, fim e motivo do encerramento de cada sessão de foco concluída (cronômetro e sessões com bloqueio de apps); a hora de início do cronômetro, enviada assim que você começa; preferências de aviso e fuso horário</td><td>Histórico, relatórios, conquistas e metas, contar o limite de sessões do plano gratuito e, se você entrar na Liga de Foco de um clã, mostrar ao clã o total de minutos da semana</td><td>Execução do contrato</td></tr>
 <tr><td>Minha vida: lançamentos financeiros que você digita, cartões, categorias, agenda e tarefas, hábitos, metas, notas e as fotos que você anexa às notas</td><td>Guardar e sincronizar o que você registra</td><td>Execução do contrato</td></tr>
 <tr><td>Clãs, desafios, metas do clã, convites e progresso que você informa</td><td>Recursos em grupo</td><td>Execução do contrato</td></tr>
+<tr><td>Pedidos de tempo extra em desafio competitivo (quando foram feitos, até que horas valem e quantos pontos custaram)</td><td>Descontar os pontos e mostrar aos participantes do desafio quantos pedidos cada um fez</td><td>Execução do contrato</td></tr>
 <tr><td>Código de indicação, quem indicou quem e o estado de cada indicação</td><td>Programa de indicação</td><td>Execução do contrato</td></tr>
-<tr><td>Um resumo criptográfico (hash SHA-256) do e-mail normalizado e sinais como autoindicação, conta repetida, e-mail descartável e excesso de cadastros por hora</td><td>Impedir fraude nas indicações. Não guardamos endereço IP, navegador nem impressão digital do aparelho</td><td>Legítimo interesse</td></tr>
+<tr><td>Um resumo criptográfico (hash SHA-256) do e-mail normalizado e sinais como autoindicação, conta repetida, e-mail descartável e excesso de cadastros por hora. Se uma conta suspensa for excluída, esse mesmo resumo do e-mail fica guardado por até 1 ano</td><td>Impedir fraude nas indicações e impedir que uma conta suspensa volte com o mesmo e-mail. Não guardamos endereço IP, navegador nem impressão digital do aparelho</td><td>Legítimo interesse</td></tr>
 <tr><td>Transações da assinatura Plus enviadas pela Apple (identificador, produto, preço, moeda, datas)</td><td>Liberar o Plus e manter registros financeiros</td><td>Execução do contrato e obrigação legal</td></tr>
-<tr><td>Denúncias que você faz sobre outra pessoa e bloqueios</td><td>Segurança da comunidade</td><td>Legítimo interesse</td></tr>
+<tr><td>Denúncias que você faz sobre uma pessoa, um clã ou um desafio (quem, em qual clã ou desafio e o motivo que você escreve) e o registro de cada bloqueio (quem bloqueou quem), que abre automaticamente um registro para a equipe analisar</td><td>Analisar denúncias e bloqueios, remover conteúdo, suspender ou excluir contas e proteger a comunidade</td><td>Legítimo interesse</td></tr>
 </tbody></table></div>
 <p class="note">Seus lançamentos financeiros são <strong>digitados por você</strong>: o Desligaê não se conecta a bancos nem lê seus extratos. Valores em dinheiro nunca entram nas artes de compartilhamento, a não ser que você ligue essa opção na hora de compartilhar.</p>
 
 <h2 id="outros">4. O que outras pessoas veem</h2>
 <ul>
   <li><strong>Membros do seu clã</strong> veem seu nome público e seu papel no clã, os desafios e metas do clã, o progresso que cada um informa e a linha do tempo da meta coletiva, com nome, quanto mudou e quando. Quem ainda não entrou num desafio vê o desafio, mas não os nomes de quem participa.</li>
-  <li><strong>Liga de Foco:</strong> só participa quem aceita, clã por clã. Quem participa mostra ao clã o <strong>total de minutos de foco da semana</strong> medido pelo cronômetro do Desligaê, nunca horários nem apps. Ao sair, seus minutos deixam de aparecer a partir da semana atual. As semanas já encerradas continuam no histórico do clã.</li>
+  <li><strong>Liga de Foco:</strong> só participa quem aceita, clã por clã. Quem participa mostra ao clã o <strong>total de minutos de foco da semana</strong>, somado das suas sessões de foco no Desligaê (cronômetro e bloqueio), nunca horários nem apps. Ao sair, seus minutos deixam de aparecer a partir da semana atual. As semanas já encerradas continuam no histórico do clã.</li>
+  <li><strong>Desafio competitivo:</strong> os participantes do desafio veem quantos pedidos de tempo extra cada um fez e quantos pontos custaram.</li>
+  <li><strong>Filtro automático:</strong> os textos que outras pessoas veem (nome público, nome e descrição dos clãs, nome e meta dos desafios e título das metas do clã) passam por um filtro automático que barra termos ofensivos. Quando um texto é barrado, o app mostra: "Esse texto não é permitido. Revise e tente de novo."</li>
+  <li><strong>Bloqueio:</strong> quem você bloqueia continua listado para você, mas aparece como "Pessoa bloqueada", e os textos dessa pessoa ficam ocultos: o nome dela e os nomes de clãs, desafios e metas que ela criou. Os números agregados, como totais e progresso, continuam aparecendo. Ela não pode mais convidar você. A equipe do Desligaê recebe um registro de cada bloqueio para analisar.</li>
   <li><strong>Quem convidou você</strong> vê o seu primeiro nome e a inicial do sobrenome somente quando a indicação estiver confirmada. Nos outros casos, vê apenas um motivo genérico, como "ainda não confirmou o e-mail".</li>
   <li><strong>Ranking de indicações:</strong> outras pessoas conectadas veem a posição e o total de indicações de cada código. Seu código pode conter parte do seu nome.</li>
   <li>Sua foto de perfil, suas finanças e suas notas <strong>não aparecem</strong> para o clã nem para outros usuários.</li>
-  <li>A equipe do Desligaê, pelo painel administrativo, vê dados de conta (e-mail, nome, datas, plano e situação) para suporte e segurança. Ela não vê o conteúdo das suas notas nem as suas finanças.</li>
+  <li>A equipe do Desligaê, pelo painel administrativo, vê dados de conta, denúncias e bloqueios, para suporte e segurança. Os dados de conta são e-mail, nome, datas, plano e situação. Ela não vê o conteúdo das suas notas nem as suas finanças.</li>
 </ul>
 
 <h2 id="opcionais">5. O que é opcional</h2>
@@ -149,6 +156,7 @@ footer nav{display:flex;gap:16px;flex-wrap:wrap}
 <p>Usamos poucos fornecedores, que agem como operadores e só tratam os dados para prestar o serviço:</p>
 <ul>
   <li><strong>Supabase</strong>, empresa dos EUA, para banco de dados, contas e funções do servidor. O projeto fica hospedado na região de <strong>São Paulo</strong>. Como o fornecedor é estrangeiro, pode haver acesso técnico a partir de outros países, com as salvaguardas contratuais do fornecedor.</li>
+  <li><strong>Resend</strong>, empresa dos EUA, para enviar os e-mails da conta, como confirmação e recuperação de senha, e receber as mensagens enviadas para <a href="mailto:suporte@desligae.com">suporte@desligae.com</a>. O domínio de e-mail está configurado na região de <strong>São Paulo</strong>. Como no caso do Supabase, pode haver acesso técnico a partir de outros países, com as salvaguardas contratuais do fornecedor.</li>
   <li><strong>Apple</strong>, para a loja, as compras, as notificações, as métricas do iOS e o Tempo de Uso, dentro do próprio sistema do iPhone.</li>
   <li><strong>Google</strong> e <strong>Apple</strong>, só se você escolher entrar com essas contas, quando essa opção estiver disponível.</li>
 </ul>
@@ -157,18 +165,21 @@ footer nav{display:flex;gap:16px;flex-wrap:wrap}
 <h2 id="tempo">8. Por quanto tempo guardamos</h2>
 <ul>
   <li>Os dados da conta e o que você registra ficam guardados enquanto a conta existir. Ao excluir a conta, eles são apagados (veja a próxima seção).</li>
+  <li><strong>Denúncias e bloqueios:</strong> ficam guardados enquanto as duas contas envolvidas existirem. Se uma delas for excluída, eles são apagados.</li>
+  <li><strong>Conta excluída durante uma suspensão:</strong> fica só o resumo criptográfico (hash) do e-mail, por até 1 ano, para que uma conta nova com o mesmo e-mail continue suspensa.</li>
   <li><strong>Registros técnicos:</strong> os comprovantes de operação, os registros de acesso do servidor e as métricas opcionais ficam 30 dias. Os lotes de contagem de compartilhamentos ficam até 8 dias, e os contadores de limite diário, 1 dia.</li>
   <li><strong>Lista de espera do site:</strong> até o aviso de lançamento ser enviado, ou até você pedir para sair.</li>
   <li><strong>Financeiro:</strong> os registros das transações da assinatura são mantidos pelo prazo exigido pela legislação fiscal e contábil, sem ligação com a sua conta depois da exclusão.</li>
 </ul>
 
 <h2 id="excluir">9. Como excluir sua conta</h2>
-<p>No app, toque em <strong>Você → Excluir conta</strong>. Se você administra um clã com outras pessoas, precisa passar a administração para alguém antes. A exclusão:</p>
+<p>No app, toque em <strong>Você → Excluir conta…</strong>. A exclusão é sempre possível pelo próprio app, inclusive se você administra um clã ou se a sua conta estiver suspensa. A exclusão:</p>
 <ul>
-  <li><strong>Apaga do servidor:</strong> conta, perfil, foto, registros de foco, Minha vida, configurações, notificações, métricas, participação na Liga de Foco e seus pontos nas metas.</li>
+  <li><strong>Apaga do servidor:</strong> conta, perfil, foto, registros de foco, Minha vida, configurações, notificações, métricas, participação na Liga de Foco, seus pontos nas metas, seus pedidos de tempo extra e as denúncias e bloqueios que envolvem você.</li>
   <li><strong>Apaga do iPhone:</strong> a cópia local dos dados.</li>
-  <li><strong>Clãs e desafios:</strong> os seus passam para outra pessoa, e os que ficarem sem ninguém são apagados.</li>
+  <li><strong>Clãs que você administra:</strong> a administração passa sozinha para o integrante mais antigo; sem ninguém, o clã é apagado. Os desafios que você criou passam do mesmo jeito para o participante mais antigo; sem ninguém, o desafio é apagado.</li>
   <li><strong>Fica sem ligação com você:</strong> transações financeiras (por obrigação legal), indicações já registradas, posições já encerradas da Liga e registros de auditoria de exclusão. Códigos de indicação já criados podem continuar existindo e podem conter parte do nome.</li>
+  <li><strong>Conta suspensa:</strong> também pode ser excluída. Nesse caso, fica só o resumo criptográfico do e-mail por até 1 ano, para que uma conta nova com o mesmo e-mail continue suspensa.</li>
   <li><strong>Assinatura:</strong> excluir a conta <strong>não cancela</strong> o Plus na Apple. Cancele em Ajustes → seu nome → Assinaturas.</li>
 </ul>
 
